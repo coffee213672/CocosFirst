@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "aae0912e-bf89-4747-94c9-a11fe3e8190b",
+  "atlasJson": "{\"width\":1024,\"height\":512,\"name\":\"action\",\"imagePath\":\"action_tex.png\",\"SubTexture\":[{\"width\":255,\"y\":1,\"height\":168,\"name\":\"鼠來寶1-05\",\"x\":564},{\"width\":255,\"y\":264,\"height\":168,\"name\":\"鼠來寶1-04\",\"x\":717},{\"width\":237,\"y\":264,\"height\":190,\"name\":\"鼠來寶-03\",\"x\":478},{\"width\":282,\"y\":271,\"height\":181,\"name\":\"鼠來寶-04\",\"x\":194},{\"width\":191,\"y\":1,\"height\":313,\"name\":\"鼠來寶-07\",\"x\":1},{\"y\":1,\"frameY\":-45,\"frameWidth\":191,\"width\":191,\"frameX\":0,\"frameHeight\":313,\"height\":268,\"name\":\"鼠來寶2-03\",\"x\":194},{\"width\":175,\"y\":1,\"height\":261,\"name\":\"鼠來寶-05\",\"x\":387},{\"y\":1,\"frameY\":-13,\"frameWidth\":175,\"width\":175,\"frameX\":0,\"frameHeight\":261,\"height\":235,\"name\":\"鼠來寶-06\",\"x\":821},{\"width\":32,\"y\":238,\"height\":13,\"name\":\"鼠來寶-12\",\"x\":564},{\"width\":23,\"y\":33,\"height\":27,\"name\":\"鼠來寶-10\",\"x\":998},{\"width\":24,\"y\":1,\"height\":30,\"name\":\"鼠來寶-9\",\"x\":998},{\"width\":19,\"y\":238,\"height\":13,\"name\":\"鼠來寶-11\",\"x\":598},{\"width\":74,\"y\":316,\"height\":103,\"name\":\"鼠來寶-8\",\"x\":1}]}",
+  "texture": "c2605186-c55f-4f7e-a387-b778d7a9a962",
+  "subMetas": {}
+}

@@ -21,14 +21,18 @@ cc.Class({
         var xdx = this;
         var goaction = cc.moveBy(12, -500, 0);
         var ACTION_TAG = 1; 
-        goaction.setTag(ACTION_TAG);
+        
+        // cc.log(sss)
         // this.mouse_act.resume();
-        setTimeout(function (){
-            xdx.mouse_act.resume();
-        },2000);
+        xdx.mouse_act.resume();
         xdx.node.runAction(goaction);
-        xdx.node.getActionByTag(goaction);
-        xdx.node.stopActionByTag(goaction);
+        goaction.setTag(ACTION_TAG);
+        xdx.node.getActionByTag(ACTION_TAG);
+        setTimeout(function (){    
+            xdx.node.stopActionByTag(ACTION_TAG);
+            xdx.mouse_state = xdx.mouse_act.play('mouse_action2');
+        },2000);
+
     },
 
     // update (dt) {},
