@@ -24,4 +24,6 @@ cc.Class({
     },
 
     // update (dt) {},
+
+    
 });
