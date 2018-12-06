@@ -1,4 +1,4 @@
-var sd = Math.floor(Math.random()*2);
+var sd = 1; //Math.floor(Math.random()*2)
 var lr =1;
 cc.Class({
     extends: cc.Component,
@@ -72,6 +72,9 @@ cc.Class({
             this.label_left.enabled = false;
             cc.log(this.label_left);
         }
+
+        cc.sys.localStorage.setItem('sd',sd);
+        cc.sys.localStorage.setItem('lr',lr);
         // setTimeout(function (){
 
         // },5000)
