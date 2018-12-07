@@ -30,6 +30,7 @@ cc.Class({
     getDot:function(xx){
          switch (xx){
             case 1:
+                this.dot0 = new cc.Rect(-192.5,244.5,1,1);
                 this.dot1 = new cc.Rect(-172.5,244.5,1,1);
                 this.dot2 = new cc.Rect(-172.5,160.5,1,1);
                 this.dot3 = new cc.Rect(171.5,160.5,1,1);
@@ -40,6 +41,7 @@ cc.Class({
                 this.dot8 = new cc.Rect(171.5,-287.5,2,2);
             break;
             case 2:
+                this.dot0 = new cc.Rect(191.5,244.5,1,1);
                 this.dot1 = new cc.Rect(171.5,244.5,1,1);
                 this.dot2 = new cc.Rect(171.5,160.5,1,1);
                 this.dot3 = new cc.Rect(-172.5,160.5,1,1);
@@ -50,6 +52,7 @@ cc.Class({
                 this.dot8 = new cc.Rect(-172.5,-287.5,2,2);
             break;
             case 3:
+                this.dot0 = new cc.Rect(-192.5,244.5,1,1);
                 this.dot1 = new cc.Rect(-172.5,244.5,1,1);
                 this.dot2 = new cc.Rect(-172.5,160.5,1,1);
                 this.dot3 = new cc.Rect(171.5,160.5,1,1);
@@ -62,16 +65,17 @@ cc.Class({
                 this.dot10 = new cc.Rect(-172.5,-287.5,1,1);
             break;
             default:
-               this.dot1 = new cc.Rect(171.5,244.5,1,1);
-               this.dot2 = new cc.Rect(171.5,160.5,1,1);
-               this.dot3 = new cc.Rect(-172.5,160.5,1,1);
-               this.dot4 = new cc.Rect(-172.5,76.5,1,1);
-               this.dot5 = new cc.Rect(171.5,76.5,1,1);
-               this.dot6 = new cc.Rect(171.5,-3.5,1,1);
-               this.dot7 = new cc.Rect(-172.5,-3.5,1,1);
-               this.dot8 = new cc.Rect(-172.5,-87.5,1,1);
-               this.dot9 = new cc.Rect(171.5,-87.5,1,1);
-               this.dot10 = new cc.Rect(171.5,-287.5,1,1);
+                this.dot0 = new cc.Rect(191.5,244.5,1,1);
+                this.dot1 = new cc.Rect(171.5,244.5,1,1);
+                this.dot2 = new cc.Rect(171.5,160.5,1,1);
+                this.dot3 = new cc.Rect(-172.5,160.5,1,1);
+                this.dot4 = new cc.Rect(-172.5,76.5,1,1);
+                this.dot5 = new cc.Rect(171.5,76.5,1,1);
+                this.dot6 = new cc.Rect(171.5,-3.5,1,1);
+                this.dot7 = new cc.Rect(-172.5,-3.5,1,1);
+                this.dot8 = new cc.Rect(-172.5,-87.5,1,1);
+                this.dot9 = new cc.Rect(171.5,-87.5,1,1);
+                this.dot10 = new cc.Rect(171.5,-287.5,1,1);
          }
     },
 
@@ -79,9 +83,14 @@ cc.Class({
     setMouseValue:function(act,tn,direction){
         switch(act){
             case 'mouse_action1':
-                tn.node.scaleX = 0.5;
-                tn.node.scaleY = 0.5;
-                //tn.node.y = 245;
+                if(direction == 'right'){
+                    tn.node.scaleX = -0.5;
+                    tn.node.scaleY = 0.5;
+                }else{
+                    tn.node.scaleX = 0.5;
+                    tn.node.scaleY = 0.5;
+                    //tn.node.y = 245;
+                }
             break;
             case 'mouse_action2':
                 if(direction == 'right'){
@@ -142,8 +151,8 @@ cc.Class({
     },
 
     startAction:function(lr){
-        if(lr == 1) this.goAction('mouse_action2',0.5,-80,0);
-        else this.goAction('mouse_action2',0.5,80,0,'right');
+        if(lr == 1) this.goAction('mouse_action2',0.5,-60,0);
+        else this.goAction('mouse_action2',0.5,60,0,'right');
     },
 
     goAction:function(act,speed,sX,sY,gowhere){
@@ -160,7 +169,9 @@ cc.Class({
     allAction:function(Mode){
         switch (Mode){
             case 1:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
+                    this.goAction('mouse_action1',1,4,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
                     this.goAction('mouse_action4',0.5,0,-42);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
                     this.goAction('mouse_action2',0.95,172,0,'right');
@@ -173,7 +184,7 @@ cc.Class({
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
                     this.goAction('mouse_action2',0.95,172,0,'right');
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
-                    this.goAction('mouse_action4',0.5,0,-142);
+                    this.goAction('mouse_action4',1,0,-142);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
                     this.moneyRight.active = false;
                     this.aa = 'mouse_action3';
@@ -184,7 +195,9 @@ cc.Class({
                 }
             break;
             case 2:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
+                    this.goAction('mouse_action1',1,-4,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
                     this.goAction('mouse_action4',0.5,0,-42);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
                     this.goAction('mouse_action2',0.95,-172,0);
@@ -197,7 +210,7 @@ cc.Class({
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
                     this.goAction('mouse_action2',0.95,-172,0);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
-                    this.goAction('mouse_action4',0.5,0,-142);
+                    this.goAction('mouse_action4',1,0,-142);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
                     this.moneyLeft.active = false;
                     this.aa = 'mouse_action3';
@@ -207,8 +220,10 @@ cc.Class({
                     this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
                 }
             break;
-            case 3:   
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+            case 3:
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
+                    this.goAction('mouse_action1',1,4,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
                     this.goAction('mouse_action4',0.5,0,-42);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
                     this.goAction('mouse_action2',0.95,172,0,'right');
@@ -225,7 +240,7 @@ cc.Class({
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
                     this.goAction('mouse_action2',0.95,-172,0);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot9)){
-                    this.goAction('mouse_action4',0.5,0,-100);
+                    this.goAction('mouse_action4',1,0,-100);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot10)){
                     this.moneyLeft.active = false;
                     this.aa = 'mouse_action3';
@@ -236,7 +251,9 @@ cc.Class({
                 }
             break;
             default:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
+                    this.goAction('mouse_action1',1,-4,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
                     this.goAction('mouse_action4',0.5,0,-42);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
                     this.goAction('mouse_action2',0.95,-172,0);
@@ -253,7 +270,7 @@ cc.Class({
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
                     this.goAction('mouse_action2',0.95,172,0,'right');
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot9)){
-                    this.goAction('mouse_action4',0.5,0,-100);
+                    this.goAction('mouse_action4',1,0,-100);
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot10)){
                     this.moneyRight.active = false;
                     this.aa = 'mouse_action3';
@@ -295,6 +312,6 @@ cc.Class({
     update (dt) {
         //cc.log(dt)
         this.allAction(this.wMode);
-        // cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
+        cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
     },
 });
