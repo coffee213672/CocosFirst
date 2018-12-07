@@ -58,26 +58,26 @@ cc.Class({
 
     onLoad () {
         var xx = this.getComponent(dragonBones.ArmatureDisplay);
-        if(sd === 0) this.stair_d.active = false;
-        else this.stair_s.active = false;
+        var xdx = this;
+        setTimeout(function(){
+            if(sd === 0) xdx.stair_d.active = false;
+            else xdx.stair_s.active = false;
 
-        if(lr === 0) {
-            this.arrow_right.active = false;
-            this.mouse_right.active = false;
-            this.label_right.enabled = false;
-            cc.log(this.label_right);
-        }else{
-            this.arrow_left.active = false;
-            this.mouse_left.active = false;
-            this.label_left.enabled = false;
-            cc.log(this.label_left);
-        }
+            if(lr === 0) {
+                xdx.arrow_right.active = false;
+                xdx.mouse_right.active = false;
+                xdx.label_right.enabled = false;
+                // cc.log(xdx.label_right);
+            }else{
+                xdx.arrow_left.active = false;
+                xdx.mouse_left.active = false;
+                xdx.label_left.enabled = false;
+                // cc.log(xdx.label_left);
+            }
 
-        cc.sys.localStorage.setItem('sd',sd);
-        cc.sys.localStorage.setItem('lr',lr);
-        // setTimeout(function (){
-
-        // },5000)
+            cc.sys.localStorage.setItem('sd',sd);
+            cc.sys.localStorage.setItem('lr',lr);
+        },5000)
     },
 
     start () {
