@@ -1,5 +1,5 @@
-var sd = 1; //Math.floor(Math.random()*2)
-var lr =1;
+var sd = Math.floor(Math.random()*2); //Math.floor(Math.random()*2)
+var lr = Math.floor(Math.random()*2);
 cc.Class({
     extends: cc.Component,
     properties: {

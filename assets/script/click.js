@@ -14,40 +14,6 @@ cc.Class({
         }
     },
 
-    // LIFE-CYCLE CALLBACKS:
-
-
-    onLoad () {
-        this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
-        this.armature_ary = this.chgArmature.getArmatureNames();
-        this.aa = '';
-        this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
-        this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
-
-        if(this.sd == 0){
-            if(this.lr == 0){
-
-            }else{
-
-            }
-        }else{
-            if(this.lr == 0){
-
-            }else{
-                this.dot1 = new cc.Rect(171.5,244.5,1,1);
-                this.dot2 = new cc.Rect(171.5,160.5,1,1);
-                this.dot3 = new cc.Rect(-172.5,160.5,1,1);
-                this.dot4 = new cc.Rect(-172.5,76.5,1,1);
-                this.dot5 = new cc.Rect(171.5,76.5,1,1);
-                this.dot6 = new cc.Rect(171.5,-3.5,1,1);
-                this.dot7 = new cc.Rect(-172.5,-3.5,1,1);
-                this.dot8 = new cc.Rect(-172.5,-87.5,1,1);
-                this.dot9 = new cc.Rect(171.5,-87.5,1,1);
-                this.dot10 = new cc.Rect(171.5,-327.5,1,1);
-            }
-        }
-    },
 
     /*
         mouse_action：
@@ -60,6 +26,55 @@ cc.Class({
         this.getComponent(dragonBones.ArmatureDisplay).getArmatureNames()[x] 改變armature
         this.getComponent(dragonBones.ArmatureDisplay).playAnimation(armatre_ary[x]) 執行animation
     */
+
+    getDot:function(xx){
+         switch (xx){
+            case 1:
+                this.dot1 = new cc.Rect(-172.5,244.5,1,1);
+                this.dot2 = new cc.Rect(-172.5,160.5,1,1);
+                this.dot3 = new cc.Rect(171.5,160.5,1,1);
+                this.dot4 = new cc.Rect(171.5,76.5,1,1);
+                this.dot5 = new cc.Rect(-172.5,76.5,1,1);
+                this.dot6 = new cc.Rect(-172.5,-3.5,1,1);
+                this.dot7 = new cc.Rect(171.5,-3.5,1,1);
+                this.dot8 = new cc.Rect(171.5,-287.5,2,2);
+            break;
+            case 2:
+                this.dot1 = new cc.Rect(171.5,244.5,1,1);
+                this.dot2 = new cc.Rect(171.5,160.5,1,1);
+                this.dot3 = new cc.Rect(-172.5,160.5,1,1);
+                this.dot4 = new cc.Rect(-172.5,76.5,1,1);
+                this.dot5 = new cc.Rect(171.5,76.5,1,1);
+                this.dot6 = new cc.Rect(171.5,-3.5,1,1);
+                this.dot7 = new cc.Rect(-172.5,-3.5,1,1);
+                this.dot8 = new cc.Rect(-172.5,-287.5,2,2);
+            break;
+            case 3:
+                this.dot1 = new cc.Rect(-172.5,244.5,1,1);
+                this.dot2 = new cc.Rect(-172.5,160.5,1,1);
+                this.dot3 = new cc.Rect(171.5,160.5,1,1);
+                this.dot4 = new cc.Rect(171.5,76.5,1,1);
+                this.dot5 = new cc.Rect(-172.5,76.5,1,1);
+                this.dot6 = new cc.Rect(-172.5,-3.5,1,1);
+                this.dot7 = new cc.Rect(171.5,-3.5,1,1);
+                this.dot8 = new cc.Rect(171.5,-87.5,1,1);
+                this.dot9 = new cc.Rect(-172.5,-87.5,1,1);
+                this.dot10 = new cc.Rect(-172.5,-287.5,1,1);
+            break;
+            default:
+               this.dot1 = new cc.Rect(171.5,244.5,1,1);
+               this.dot2 = new cc.Rect(171.5,160.5,1,1);
+               this.dot3 = new cc.Rect(-172.5,160.5,1,1);
+               this.dot4 = new cc.Rect(-172.5,76.5,1,1);
+               this.dot5 = new cc.Rect(171.5,76.5,1,1);
+               this.dot6 = new cc.Rect(171.5,-3.5,1,1);
+               this.dot7 = new cc.Rect(-172.5,-3.5,1,1);
+               this.dot8 = new cc.Rect(-172.5,-87.5,1,1);
+               this.dot9 = new cc.Rect(171.5,-87.5,1,1);
+               this.dot10 = new cc.Rect(171.5,-287.5,1,1);
+         }
+    },
+
 
     setMouseValue:function(act,tn,direction){
         switch(act){
@@ -126,9 +141,9 @@ cc.Class({
         this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
     },
 
-    start () {
-        cc.log(Math.round(this.chgArmature.node.x)+','+Math.round(this.chgArmature.node.y))
-        this.goAction('mouse_action2',0.5,-80,0);   //(252,245)
+    startAction:function(lr){
+        if(lr == 1) this.goAction('mouse_action2',0.5,-80,0);
+        else this.goAction('mouse_action2',0.5,80,0,'right');
     },
 
     goAction:function(act,speed,sX,sY,gowhere){
@@ -142,40 +157,144 @@ cc.Class({
         this.node.runAction(move1);
     },
 
+    allAction:function(Mode){
+        switch (Mode){
+            case 1:
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
+                    this.goAction('mouse_action2',0.95,172,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
+                    this.goAction('mouse_action2',0.95,-172,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
+                    this.goAction('mouse_action4',0.5,0,-40);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
+                    this.goAction('mouse_action2',0.95,172,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
+                    this.goAction('mouse_action4',0.5,0,-142);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
+                    this.moneyRight.active = false;
+                    this.aa = 'mouse_action3';
+                    this.setMouseValue(this.aa,this.chgArmature);
+                    this.chgArmature.armatureName = this.aa;
+                    this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
+                    this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
+                }
+            break;
+            case 2:
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
+                    this.goAction('mouse_action2',0.95,-172,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
+                    this.goAction('mouse_action2',0.95,172,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
+                    this.goAction('mouse_action4',0.5,0,-40);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
+                    this.goAction('mouse_action2',0.95,-172,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
+                    this.goAction('mouse_action4',0.5,0,-142);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
+                    this.moneyLeft.active = false;
+                    this.aa = 'mouse_action3';
+                    this.setMouseValue(this.aa,this.chgArmature);
+                    this.chgArmature.armatureName = this.aa;
+                    this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
+                    this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
+                }
+            break;
+            case 3:   
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
+                    this.goAction('mouse_action2',0.95,172,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
+                    this.goAction('mouse_action2',0.95,-172,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
+                    this.goAction('mouse_action4',0.5,0,-40);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
+                    this.goAction('mouse_action2',0.95,172,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
+                    this.goAction('mouse_action2',0.95,-172,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot9)){
+                    this.goAction('mouse_action4',0.5,0,-100);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot10)){
+                    this.moneyLeft.active = false;
+                    this.aa = 'mouse_action3';
+                    this.setMouseValue(this.aa,this.chgArmature);
+                    this.chgArmature.armatureName = this.aa;
+                    this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
+                    this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
+                }
+            break;
+            default:
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
+                    this.goAction('mouse_action2',0.95,-172,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
+                    this.goAction('mouse_action2',0.95,172,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
+                    this.goAction('mouse_action4',0.5,0,-40);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
+                    this.goAction('mouse_action2',0.95,-172,0);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
+                    this.goAction('mouse_action4',0.5,0,-42);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
+                    this.goAction('mouse_action2',0.95,172,0,'right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot9)){
+                    this.goAction('mouse_action4',0.5,0,-100);
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot10)){
+                    this.moneyRight.active = false;
+                    this.aa = 'mouse_action3';
+                    this.setMouseValue(this.aa,this.chgArmature);
+                    this.chgArmature.armatureName = this.aa;
+                    this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
+                    this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
+                }
+            break;
+        }
+    },
+
+    containsX : function (x,y,comXY) {
+        return (comXY.x <= x && comXY.x + comXY.width >= x && comXY.y <= y && comXY.y + comXY.height >=y);
+    },
+
+    onLoad () {
+        this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
+        this.armature_ary = this.chgArmature.getArmatureNames();
+        this.aa = '';
+        this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
+        this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
+        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
+        if(this.sd == 0 && this.lr == 0) this.wMode = 1;
+        else if(this.sd == 0 && this.lr == 1) this.wMode = 2;
+        else if(this.sd == 1 && this.lr == 0) this.wMode = 3;
+        else this.wMode = 4;
+        var xx = this.wMode
+        this.getDot(xx);
+        cc.log(this.sd+','+this.lr)
+    },
+
+    start () {
+        cc.log(Math.round(this.chgArmature.node.x)+','+Math.round(this.chgArmature.node.y))
+        this.startAction(this.lr)
+        //(252,245)
+    },
+
     update (dt) {
         //cc.log(dt)
-
-        if(this.dot1.contains(this.chgArmature.node.x,this.chgArmature.node.y)){
-            this.goAction('mouse_action4',0.5,0,-42);
-        }
-
-        // if(Math.round(this.chgArmature.node.x) == 172 && Math.round(this.chgArmature.node.y) == 245){ //(172,245)
-        //     this.goAction('mouse_action4',0.5,0,-42);           
-        // }else if(Math.round(this.chgArmature.node.x) == 172 && Math.round(this.chgArmature.node.y) == 161){ //(172,161)
-        //     this.goAction('mouse_action2',0.95,-172,0);
-        // }else if(Math.round(this.chgArmature.node.x) == -172 && Math.round(this.chgArmature.node.y) == 161){ //(-172,161)
-        //     this.goAction('mouse_action4',0.5,0,-42);
-        // }else if(Math.round(this.chgArmature.node.x) == -172 && Math.round(this.chgArmature.node.y) == 77){ //(-172,77)
-        //     this.goAction('mouse_action2',0.95,172,0,'right');
-        // }else if(Math.round(this.chgArmature.node.x) == 172 && Math.round(this.chgArmature.node.y) == 77){ //(172,77)
-        //     this.goAction('mouse_action4',0.5,0,-40);
-        // }else if(Math.round(this.chgArmature.node.x) == 172 && Math.round(this.chgArmature.node.y) == -3){ //(172,-3)
-        //     this.goAction('mouse_action2',0.95,-172,0);
-        // }else if(Math.round(this.chgArmature.node.x) == -172 && Math.round(this.chgArmature.node.y) == -3){ //(-172,-3)
-        //     this.goAction('mouse_action4',0.5,0,-42);
-        // }else if(Math.round(this.chgArmature.node.x) == -172 && Math.round(this.chgArmature.node.y) == -87){ //(-172,-87)
-        //     this.goAction('mouse_action2',0.95,172,0,'right');
-        // }else if(Math.round(this.chgArmature.node.x) == 172 && Math.round(this.chgArmature.node.y) == -87){ //(172,-87)
-        //     this.goAction('mouse_action4',0.5,0,-100);
-        // }else if(Math.round(this.chgArmature.node.x) == 172 && Math.round(this.chgArmature.node.y) == -287){ //(172,-327)
-        //     this.moneyRight.active = false;
-        //     this.aa = 'mouse_action3';
-        //     this.setMouseValue(this.aa,this.chgArmature);
-        //     this.chgArmature.armatureName = this.aa;
-        //     this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
-        //     this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
-        //     cc.log(Math.round(this.chgArmature.node.x)+','+Math.round(this.chgArmature.node.y))
-        // }
-        //cc.log(Math.round(this.chgArmature.node.x)+','+Math.round(this.chgArmature.node.y))
+        this.allAction(this.wMode);
+        // cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
     },
 });
