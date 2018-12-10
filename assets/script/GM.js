@@ -72,6 +72,7 @@ cc.Class({
         cc.sys.localStorage.setItem('lr','undefined');
         this.Sflag = false;
         this.Lflag = false;
+        this.RestartFlag = false;
  
         this.timer = 0;
     },
@@ -88,16 +89,19 @@ cc.Class({
         this.checkData();
 
         if(this.lr == 0){
+            //cc.log(this.mouse_left.x+','+this.mouse_left.y)
             if(this.containsX(this.mouse_left.x,this.mouse_left.y,this.checkdot)){
                 this.timer += dt
             }
         }else if(this.lr == 1){
+            //cc.log(this.mouse_right.x+','+this.mouse_right.y)
             if(this.containsX(this.mouse_right.x,this.mouse_right.y,this.checkdot)){
                 this.timer += dt
             }
         }
 
         if(this.timer > 5){
+            this.RestartFlag = true
             this.gameOver();
             return;
          }
@@ -134,8 +138,10 @@ cc.Class({
     },
     
     gameOver: function () {
-        if(this.lr === 0) this.mouse_left.getComponent(dragonBones.ArmatureDisplay).playAnimation('');
-        else this.mouse_right.getComponent(dragonBones.ArmatureDisplay).playAnimation('');
-        cc.director.loadScene('game');
+        if(this.RestartFlag == true){
+            this.RestartFlag = false;
+            this.timer = 0;
+            cc.director.loadScene('game');
+        }
     }
 });
