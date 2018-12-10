@@ -151,7 +151,7 @@ cc.Class({
 
     goAction:function(act,speed,sX,sY,gowhere){
         this.aa = act;
-        var move1 = cc.moveBy(speed,cc.v2(sX,sY));
+        var move1 = cc.moveBy(speed,sX,sY);
         if(typeof gowhere == undefined) this.setMouseValue(this.aa,this.chgArmature);
         else this.setMouseValue(this.aa,this.chgArmature,gowhere);
         this.chgArmature.armatureName = this.aa;

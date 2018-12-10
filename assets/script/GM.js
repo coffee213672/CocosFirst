@@ -89,12 +89,12 @@ cc.Class({
         this.checkData();
 
         if(this.lr == 0){
-            //cc.log(this.mouse_left.x+','+this.mouse_left.y)
+            cc.log(this.mouse_left.x+','+this.mouse_left.y)
             if(this.containsX(this.mouse_left.x,this.mouse_left.y,this.checkdot)){
                 this.timer += dt
             }
         }else if(this.lr == 1){
-            //cc.log(this.mouse_right.x+','+this.mouse_right.y)
+            cc.log(this.mouse_right.x+','+this.mouse_right.y)
             if(this.containsX(this.mouse_right.x,this.mouse_right.y,this.checkdot)){
                 this.timer += dt
             }
