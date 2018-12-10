@@ -84,11 +84,11 @@ cc.Class({
         switch(act){
             case 'mouse_action1':
                 if(direction == 'right'){
-                    tn.node.scaleX = -0.5;
-                    tn.node.scaleY = 0.5;
+                    tn.node.scaleX = -0.425;
+                    tn.node.scaleY = 0.425;
                 }else{
-                    tn.node.scaleX = 0.5;
-                    tn.node.scaleY = 0.5;
+                    tn.node.scaleX = 0.425;
+                    tn.node.scaleY = 0.425;
                     //tn.node.y = 245;
                 }
             break;
@@ -106,7 +106,6 @@ cc.Class({
                 tn.node.scaleX = 0.5;
                 tn.node.scaleY = 0.5;
                 tn.node.y = tn.node.y - 40
-                cc.log(tn.node)
             break;
             case 'mouse_action4':
                 tn.node.scaleX = 0.3;
@@ -125,23 +124,18 @@ cc.Class({
         switch(event.keyCode) {
             case cc.macro.KEY.w:
                 this.aa = this.armature_ary[0];
-                cc.log(this.aa);
             break;
             case cc.macro.KEY.e:
                 this.aa = this.armature_ary[1];
-                cc.log(this.aa);
             break;
             case cc.macro.KEY.a:
                 this.aa = this.armature_ary[2];
-                cc.log(this.aa);
             break;
             case cc.macro.KEY.s:
                 this.aa = this.armature_ary[3];
-                cc.log(this.aa);
             break;
             case cc.macro.KEY.d:
                 this.aa = this.armature_ary[4];
-                cc.log(this.aa);
             break;
         }
         this.setMouseValue(this.aa,this.chgArmature);
@@ -291,27 +285,32 @@ cc.Class({
         this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
         this.armature_ary = this.chgArmature.getArmatureNames();
         this.aa = '';
+        this.Xflag = false;
+    },
+
+    start () {
+        // this.startAction(this.lr)
+    },
+
+    update (dt) {
+        //cc.log(dt)
+        if(this.Xflag != true) this.checkDataMouse();
+        if(typeof cc.sys.localStorage.getItem('sd') != 'undefined' && typeof cc.sys.localStorage.getItem('lr') != 'undefined' && this.Xflag == true) this.allAction(this.wMode);    
+        //cc.log(cc.sys.localStorage.getItem('sd')+','+cc.sys.localStorage.getItem('lr'))
+    },
+
+    checkDataMouse:function(){
+        if(cc.sys.localStorage.getItem('sd') != 'undefined' && cc.sys.localStorage.getItem('lr') != 'undefined'){
         this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
         this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
-        cc.systemEvent.on(cc.SystemEvent.EventType.KEY_DOWN, this.onKeyDown, this);
         if(this.sd == 0 && this.lr == 0) this.wMode = 1;
         else if(this.sd == 0 && this.lr == 1) this.wMode = 2;
         else if(this.sd == 1 && this.lr == 0) this.wMode = 3;
         else this.wMode = 4;
         var xx = this.wMode
         this.getDot(xx);
-        cc.log(this.sd+','+this.lr)
-    },
-
-    start () {
-        cc.log(Math.round(this.chgArmature.node.x)+','+Math.round(this.chgArmature.node.y))
-        this.startAction(this.lr)
-        //(252,245)
-    },
-
-    update (dt) {
-        //cc.log(dt)
-        this.allAction(this.wMode);
-        cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
+        this.Xflag = true
+        this.startAction(this.lr);
+        }
     },
 });
