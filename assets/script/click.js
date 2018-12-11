@@ -151,13 +151,14 @@ cc.Class({
 
     goAction:function(act,speed,sX,sY,gowhere){
         this.aa = act;
-        var move1 = cc.moveBy(speed,sX,sY);
+        var move1 = cc.moveBy(speed,cc.v2(sX,sY));
         if(typeof gowhere == undefined) this.setMouseValue(this.aa,this.chgArmature);
         else this.setMouseValue(this.aa,this.chgArmature,gowhere);
         this.chgArmature.armatureName = this.aa;
         this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
         this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
         this.node.runAction(move1);
+        cc.log(this.node.x+','+this.node.y)
     },
 
     allAction:function(Mode){
@@ -275,6 +276,7 @@ cc.Class({
                 }
             break;
         }
+        
     },
 
     containsX : function (x,y,comXY) {
@@ -290,6 +292,7 @@ cc.Class({
 
     start () {
         // this.startAction(this.lr)
+
     },
 
     update (dt) {
@@ -297,20 +300,21 @@ cc.Class({
         if(this.Xflag != true) this.checkDataMouse();
         if(typeof cc.sys.localStorage.getItem('sd') != 'undefined' && typeof cc.sys.localStorage.getItem('lr') != 'undefined' && this.Xflag == true) this.allAction(this.wMode);    
         //cc.log(cc.sys.localStorage.getItem('sd')+','+cc.sys.localStorage.getItem('lr'))
+        
     },
 
     checkDataMouse:function(){
         if(cc.sys.localStorage.getItem('sd') != 'undefined' && cc.sys.localStorage.getItem('lr') != 'undefined'){
-        this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
-        this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
-        if(this.sd == 0 && this.lr == 0) this.wMode = 1;
-        else if(this.sd == 0 && this.lr == 1) this.wMode = 2;
-        else if(this.sd == 1 && this.lr == 0) this.wMode = 3;
-        else this.wMode = 4;
-        var xx = this.wMode
-        this.getDot(xx);
-        this.Xflag = true
-        this.startAction(this.lr);
+            this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
+            this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
+            if(this.sd == 0 && this.lr == 0) this.wMode = 1;
+            else if(this.sd == 0 && this.lr == 1) this.wMode = 2;
+            else if(this.sd == 1 && this.lr == 0) this.wMode = 3;
+            else this.wMode = 4;
+            var xx = this.wMode
+            this.getDot(xx);
+            this.Xflag = true
+            this.startAction(this.lr);
         }
     },
 });

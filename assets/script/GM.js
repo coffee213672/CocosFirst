@@ -55,19 +55,6 @@ cc.Class({
     // LIFE-CYCLE CALLBACKS:
 
     onLoad () {
-        // var xdx = this;
-        // if(sd === 0) xdx.stair_d.active = false;
-        // else xdx.stair_s.active = false;
-
-        // if(lr === 0) {
-        //     xdx.arrow_right.active = false;
-        //     xdx.mouse_right.active = false;
-        //     xdx.label_right.enabled = false;
-        // }else{
-        //     xdx.arrow_left.active = false;
-        //     xdx.mouse_left.active = false;
-        //     xdx.label_left.enabled = false;
-        // }
         cc.sys.localStorage.setItem('sd','undefined');
         cc.sys.localStorage.setItem('lr','undefined');
         this.Sflag = false;
@@ -89,12 +76,12 @@ cc.Class({
         this.checkData();
 
         if(this.lr == 0){
-            cc.log(this.mouse_left.x+','+this.mouse_left.y)
+            //cc.log(this.mouse_left.x+','+this.mouse_left.y)
             if(this.containsX(this.mouse_left.x,this.mouse_left.y,this.checkdot)){
                 this.timer += dt
             }
         }else if(this.lr == 1){
-            cc.log(this.mouse_right.x+','+this.mouse_right.y)
+            //cc.log(this.mouse_right.x+','+this.mouse_right.y)
             if(this.containsX(this.mouse_right.x,this.mouse_right.y,this.checkdot)){
                 this.timer += dt
             }
