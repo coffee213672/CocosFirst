@@ -67,8 +67,8 @@ cc.Class({
     start () {
         var xdx = this;
         setTimeout(function(){
-            xdx.sd = Math.floor(Math.random()*2);
-            xdx.lr = Math.floor(Math.random()*2);
+            xdx.sd = 0;//Math.floor(Math.random()*2);
+            xdx.lr = 0;//Math.floor(Math.random()*2);
         },3000)
     },
 

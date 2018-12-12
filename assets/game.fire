@@ -41,9 +41,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.7743125,
-      "y": 0.7743125,
-      "z": 0.7743125
+      "x": 0.774875,
+      "y": 0.774875,
+      "z": 0.774875
     },
     "_quat": {
       "__type__": "cc.Quat",
@@ -119,16 +119,19 @@
       },
       {
         "__id__": 46
+      },
+      {
+        "__id__": 49
       }
     ],
     "_active": true,
     "_level": 1,
     "_components": [
       {
-        "__id__": 49
+        "__id__": 52
       },
       {
-        "__id__": 50
+        "__id__": 53
       }
     ],
     "_prefab": null,
@@ -1956,6 +1959,104 @@
     },
     "_width": 1,
     "_id": "81qmL5Q+1IypDs6HwjHnQM"
+  },
+  {
+    "__type__": "cc.Node",
+    "_name": "New Node",
+    "_objFlags": 0,
+    "_parent": {
+      "__id__": 2
+    },
+    "_children": [],
+    "_active": false,
+    "_level": 2,
+    "_components": [
+      {
+        "__id__": 50
+      },
+      {
+        "__id__": 51
+      }
+    ],
+    "_prefab": null,
+    "_opacity": 255,
+    "_color": {
+      "__type__": "cc.Color",
+      "r": 255,
+      "g": 255,
+      "b": 255,
+      "a": 255
+    },
+    "_contentSize": {
+      "__type__": "cc.Size",
+      "width": 100,
+      "height": 30
+    },
+    "_anchorPoint": {
+      "__type__": "cc.Vec2",
+      "x": 0.5,
+      "y": 0.5
+    },
+    "_position": {
+      "__type__": "cc.Vec3",
+      "x": 254,
+      "y": 259,
+      "z": 0
+    },
+    "_scale": {
+      "__type__": "cc.Vec3",
+      "x": 0.2,
+      "y": 0.2,
+      "z": 1
+    },
+    "_quat": {
+      "__type__": "cc.Quat",
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "w": 1
+    },
+    "_skewX": 0,
+    "_skewY": 0,
+    "_zIndex": 0,
+    "_is3DNode": false,
+    "groupIndex": 0,
+    "_id": "ebCkm8eJpEiJ/lZJlT1EaB"
+  },
+  {
+    "__type__": "dragonBones.ArmatureDisplay",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 49
+    },
+    "_enabled": true,
+    "_srcBlendFactor": 770,
+    "_dstBlendFactor": 771,
+    "_armatureName": "Dragon",
+    "_animationName": "walk",
+    "playTimes": 0,
+    "_N$dragonAsset": {
+      "__uuid__": "a9e4c03b-a684-49d4-84d0-100cadaa8c35"
+    },
+    "_N$dragonAtlasAsset": {
+      "__uuid__": "59e2684c-a6e7-40da-ab51-4f1b96a7d34c"
+    },
+    "_N$_defaultArmatureIndex": 0,
+    "_N$_animationIndex": 2,
+    "_N$timeScale": 1,
+    "_N$debugBones": false,
+    "_id": "ceNTdlkjdJ5Lsl3Bh0PsOz"
+  },
+  {
+    "__type__": "d61e9IRcTtB762IXq9a9l/7",
+    "_name": "",
+    "_objFlags": 0,
+    "node": {
+      "__id__": 49
+    },
+    "_enabled": true,
+    "_id": "1bx/EsqxVKRra3XmsbWpJi"
   },
   {
     "__type__": "cc.Canvas",
