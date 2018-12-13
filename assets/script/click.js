@@ -26,7 +26,7 @@ cc.Class({
         this.getComponent(dragonBones.ArmatureDisplay).getArmatureNames()[x] 改變armature
         this.getComponent(dragonBones.ArmatureDisplay).playAnimation(armatre_ary[x]) 執行animation
 
-                路線1： 
+        路線1： 
                 第零個切換動作座標點(-192,245)
                 第一個切換動作座標點(-172,245)
                 第二個切換動作座標點(-172,161)
@@ -78,53 +78,56 @@ cc.Class({
     getDot:function(xx){
         switch (xx){
             case 1:
-                this.dot00 = new cc.Rect(-253.5,244.5,3,3);
+                this.dotz = new cc.Rect(-253.5,244.5,3,3);
                 this.dot0 = new cc.Rect(-192.5,244.5,3,3);
-                this.dot1 = new cc.Rect(-172.5,244.5,3,3);
-                this.dot2 = new cc.Rect(-172.5,160.5,3,3);
-                this.dot3 = new cc.Rect(171.5,160.5,3,3);
-                this.dot4 = new cc.Rect(171.5,76.5,3,3);
-                this.dot5 = new cc.Rect(-172.5,76.5,3,3);
-                this.dot6 = new cc.Rect(-172.5,-3.5,3,3);
-                this.dot7 = new cc.Rect(171.5,-3.5,3,3);
-                this.dot8 = new cc.Rect(171.5,-287.5,3,3);
+                this.dot1 = new cc.Rect(-173,243,3,3);
+                this.dot2 = new cc.Rect(-173,160,3,3);
+                this.dot3 = new cc.Rect(171,160,3,3);
+                this.dot4 = new cc.Rect(171,76,3,3);
+                this.dot5 = new cc.Rect(-173,76,3,3);
+                this.dot6 = new cc.Rect(-173,-4,3,3);
+                this.dot7 = new cc.Rect(171,-4,3,3);
+                this.dot8 = new cc.Rect(171,-288,3,3);
             break;
             case 2:
+                this.dotz = new cc.Rect(251.5,244.5,3,3);
                 this.dot0 = new cc.Rect(191.5,244.5,3,3);
-                this.dot1 = new cc.Rect(171.5,244.5,3,3);
-                this.dot2 = new cc.Rect(171.5,160.5,3,3);
-                this.dot3 = new cc.Rect(-172.5,160.5,3,3);
-                this.dot4 = new cc.Rect(-172.5,76.5,3,3);
-                this.dot5 = new cc.Rect(171.5,76.5,3,3);
-                this.dot6 = new cc.Rect(171.5,-3.5,3,3);
-                this.dot7 = new cc.Rect(-172.5,-3.5,3,3);
-                this.dot8 = new cc.Rect(-172.5,-287.5,3,3);
+                this.dot1 = new cc.Rect(171,243,3,3);
+                this.dot2 = new cc.Rect(171,160,3,3);
+                this.dot3 = new cc.Rect(-173,160,3,3);
+                this.dot4 = new cc.Rect(-173,76,3,3);
+                this.dot5 = new cc.Rect(171,76,3,3);
+                this.dot6 = new cc.Rect(171,-4,3,3);
+                this.dot7 = new cc.Rect(-173,-4,3,3);
+                this.dot8 = new cc.Rect(-173,-288,3,3);
             break;
             case 3:
+                this.dotz = new cc.Rect(-253.5,244.5,3,3);
                 this.dot0 = new cc.Rect(-192.5,244.5,3,3);
-                this.dot1 = new cc.Rect(-172.5,244.5,3,3);
-                this.dot2 = new cc.Rect(-172.5,160.5,3,3);
-                this.dot3 = new cc.Rect(171.5,160.5,3,3);
-                this.dot4 = new cc.Rect(171.5,76.5,3,3);
-                this.dot5 = new cc.Rect(-172.5,76.5,3,3);
-                this.dot6 = new cc.Rect(-172.5,-3.5,3,3);
-                this.dot7 = new cc.Rect(171.5,-3.5,3,3);
-                this.dot8 = new cc.Rect(171.5,-87.5,3,3);
-                this.dot9 = new cc.Rect(-172.5,-87.5,3,3);
-                this.dot10 = new cc.Rect(-172.5,-287.5,3,3);
+                this.dot1 = new cc.Rect(-173,244,3,3);
+                this.dot2 = new cc.Rect(-173,160,3,3);
+                this.dot3 = new cc.Rect(171,160,3,3);
+                this.dot4 = new cc.Rect(171,76,3,3);
+                this.dot5 = new cc.Rect(-173,76,3,3);
+                this.dot6 = new cc.Rect(-173,-4,3,3);
+                this.dot7 = new cc.Rect(171,-4,3,3);
+                this.dot8 = new cc.Rect(171,-88,3,3);
+                this.dot9 = new cc.Rect(-173,-88,3,3);
+                this.dot10 = new cc.Rect(-173,-288,3,3);
             break;
             default:
+                this.dotz = new cc.Rect(251.5,244.5,3,3);
                 this.dot0 = new cc.Rect(191.5,244.5,3,3);
-                this.dot1 = new cc.Rect(171.5,244.5,3,3);
-                this.dot2 = new cc.Rect(171.5,160.5,3,3);
-                this.dot3 = new cc.Rect(-172.5,160.5,3,3);
-                this.dot4 = new cc.Rect(-172.5,76.5,3,3);
-                this.dot5 = new cc.Rect(171.5,76.5,3,3);
-                this.dot6 = new cc.Rect(171.5,-3.5,3,3);
-                this.dot7 = new cc.Rect(-172.5,-3.5,3,3);
-                this.dot8 = new cc.Rect(-172.5,-87.5,3,3);
-                this.dot9 = new cc.Rect(171.5,-87.5,3,3);
-                this.dot10 = new cc.Rect(171.5,-287.5,3,3);
+                this.dot1 = new cc.Rect(171,244,3,3);
+                this.dot2 = new cc.Rect(171,160,3,3);
+                this.dot3 = new cc.Rect(-173,160,3,3);
+                this.dot4 = new cc.Rect(-173,76,3,3);
+                this.dot5 = new cc.Rect(171,76,3,3);
+                this.dot6 = new cc.Rect(171,-4,3,3);
+                this.dot7 = new cc.Rect(-173,-4,3,3);
+                this.dot8 = new cc.Rect(-173,-88,3,3);
+                this.dot9 = new cc.Rect(171,-88,3,3);
+                this.dot10 = new cc.Rect(171,-288,3,3);
         }
     },
 
@@ -168,31 +171,7 @@ cc.Class({
             break;
         }
     },
-
-    onKeyDown: function (event) {
-        switch(event.keyCode) {
-            case cc.macro.KEY.w:
-                this.aa = this.armature_ary[0];
-            break;
-            case cc.macro.KEY.e:
-                this.aa = this.armature_ary[1];
-            break;
-            case cc.macro.KEY.a:
-                this.aa = this.armature_ary[2];
-            break;
-            case cc.macro.KEY.s:
-                this.aa = this.armature_ary[3];
-            break;
-            case cc.macro.KEY.d:
-                this.aa = this.armature_ary[4];
-            break;
-        }
-        this.setMouseValue(this.aa,this.chgArmature);
-        this.chgArmature.armatureName = this.aa;
-        this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
-        this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
-    },
-
+    
     startAction:function(lr){
         if(lr == 1) {
             this.goAction('mouse_action2',0.5,-60,0);
@@ -202,26 +181,24 @@ cc.Class({
     },
 
     goAction:function(Mode){
-        cc.log('1');
         switch (Mode){
             case 1:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.5,0,-84),cc.moveBy(1,344,0),cc.moveBy(1,0,-84),cc.moveBy(1,-344,0),cc.moveBy(1,0,-79),cc.moveBy(1,344,0),cc.moveBy(1,0,-284));
+                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-284));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 break;
             case 2:
-                var move = cc.sequence(cc.moveTo(1,172,245),cc.moveTo(0.5,172,161),cc.moveTo(0.8,-172,161),cc.moveTo(0.5,-172,77),cc.moveTo(0.5,172,77),cc.moveTo(0.5,172,-3),cc.moveTo(0.5,-172,-3),cc.moveTo(0.5,-172,-287));
+                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-284));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 break;
             case 3:
-                var move = cc.sequence(cc.moveTo(1,-172,245),cc.moveTo(0.5,-172,161),cc.moveTo(0.8,172,161),cc.moveTo(0.5,172,77),cc.moveTo(0.5,-172,77),cc.moveTo(0.5,-172,-3),cc.moveTo(0.5,172,-3),cc.moveTo(0.5,172,-87),cc.moveTo(0.5,-172,-87),cc.moveTo(0.5,-172,-287));
+                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-200));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 break;
             default:
-                var move = cc.sequence(cc.moveTo(1,172,245),cc.moveTo(0.5,172,161),cc.moveTo(0.8,-172,161),cc.moveTo(0.5,-172,77),cc.moveTo(0.5,172,77),cc.moveTo(0.5,172,-3),cc.moveTo(0.5,-172,-3),cc.moveTo(0.5,-172,-87),cc.moveTo(0.5,172,-87),cc.moveTo(0.5,172,-287));
+                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-200));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
         }
         this.AnimFlag = true;
-        // cc.log(this.node.x+','+this.node.y)
     },
 
     chgAnimation:function(anim,gowhere){
@@ -236,7 +213,7 @@ cc.Class({
     allAction:function(Mode){
         switch (Mode){
             case 1:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot00)){
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
                     this.chgAnimation('mouse_action2','right');
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
                     this.chgAnimation('mouse_action1','right');
@@ -260,7 +237,9 @@ cc.Class({
                 }
             break;
             case 2:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
+                    this.chgAnimation('mouse_action2');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
                     this.chgAnimation('mouse_action1');
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
                     this.chgAnimation('mouse_action4');
@@ -282,7 +261,9 @@ cc.Class({
                 }
             break;
             case 3:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
+                    this.chgAnimation('mouse_action2','right');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
                     this.chgAnimation('mouse_action1','right');
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
                     this.chgAnimation('mouse_action4');
@@ -308,7 +289,9 @@ cc.Class({
                 }
             break;
             default:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
+                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
+                    this.chgAnimation('mouse_action2');
+                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
                     this.chgAnimation('mouse_action1');
                 }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
                     this.chgAnimation('mouse_action4');
@@ -349,17 +332,14 @@ cc.Class({
         this.AnimFlag = false;
     },
 
-    start () {
-        // this.startAction(this.lr)
+    // start () {
 
-    },
+    // },
 
     update (dt) {
-        //cc.log(dt)
         if(this.Xflag != true) this.checkDataMouse();
         if(typeof cc.sys.localStorage.getItem('sd') != 'undefined' && typeof cc.sys.localStorage.getItem('lr') != 'undefined' && this.AnimFlag == true) this.allAction(this.wMode);
-        //cc.log(cc.sys.localStorage.getItem('sd')+','+cc.sys.localStorage.getItem('lr'))
-        cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
+        // cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
     },
 
     checkDataMouse:function(){
