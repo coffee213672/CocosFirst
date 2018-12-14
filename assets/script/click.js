@@ -11,7 +11,7 @@ cc.Class({
         moneyLeft:{
             default: null,
             type: cc.Node,
-        }
+        },
     },
 
 
@@ -332,9 +332,9 @@ cc.Class({
         this.AnimFlag = false;
     },
 
-    // start () {
+    start () {
 
-    // },
+    },
 
     update (dt) {
         if(this.Xflag != true) this.checkDataMouse();
