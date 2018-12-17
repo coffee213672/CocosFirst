@@ -104,17 +104,19 @@ cc.Class({
         // cc.log(this.Xurl);
         this.xhrTimer = 0;
 
-        this.zz = cc.director.getPhysicsManager();
+        this.phyM = cc.director.getPhysicsManager();
 
-        this.zz.enabled = true;
-        this.zz.enabledDrawBoundingBox = true
-        this.zz.enabledAccumulator = true
+        this.phyM.enabled = true;
+        this.phyM.enabledDrawBoundingBox = true
+        this.phyM.enabledAccumulator = true
 
-        this.zz.debugDrawFlags =
+        this.phyM.debugDrawFlags =
         cc.PhysicsManager.DrawBits.e_jointBit |
         cc.PhysicsManager.DrawBits.e_shapeBit;
 
     },
+
+
 
     start () {
         var xdx = this;
@@ -122,6 +124,8 @@ cc.Class({
             xdx.sd = 1;//Math.floor(Math.random()*2);
             xdx.lr = 1;//Math.floor(Math.random()*2);
         },2000)
+
+        //下注條
         this._updateProgressBar(this.hotbar_left,this.hotLeft);
         this._updateProgressBar(this.hotbar_right,this.hotRight);
 
@@ -145,12 +149,6 @@ cc.Class({
             this.gameOver();
             return;
         }
-        var p1 = cc.v2(this.mouse_right.x+411,this.mouse_right.y+375)
-        cc.log(p1)
-        // var p2 = cc.v2(580,577);
-
-        // var collider = cc.director.getPhysicsManager().rayCast(p1,p2,cc.RayCastType.Closest);
-        // if(collider != null) cc.log(collider)
 
         // if(this.xhrTimer > 5){
         //     this.xhrChangeData();

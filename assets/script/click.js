@@ -4,6 +4,17 @@ cc.Class({
     properties: {
         moveX:0,
         moveY:0,
+
+        mouse_left: {
+            default: null,
+            type: cc.Node,
+        },
+
+        mouse_right: {
+            default: null,
+            type: cc.Node,
+        },
+
         moneyRight:{
             default: null,
             type: cc.Node,
@@ -324,28 +335,90 @@ cc.Class({
         return (comXY.x <= x && comXY.x + comXY.width >= x && comXY.y <= y && comXY.y + comXY.height >=y);
     },
 
+    firstraycast:function(){
+        var p1 = cc.v2(this.actionmouse.x+411,this.actionmouse.y+375)
+        if(this.distance == 0){ 
+            if(this.lr == 1){
+                this.chgAnimation('mouse_action2');
+                var p2 = cc.v2(this.actionmouse.x-50+411,this.actionmouse.y+375)
+            }else{
+                this.chgAnimation('mouse_action2','right');
+                var p2 = cc.v2(this.actionmouse.x+50+411,this.actionmouse.y+375)
+            }
+            var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+            this.moveFlag = true;
+        }else{
+            var p2 = cc.Vec2(this.actionmouse.x+50+411,this.actionmouse.y+375)
+            var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+
+            if(this.colliderName != results[0].collider.node._name){
+                if(Math.abs(this.distance) < 50){
+                    if(this.distance > 0) var p2 = cc.Vec2(this.actionmouse.x+this.distance+411,this.actionmouse.y+375);
+                    else var p2 = cc.Vec2(this.actionmouse.x+this.distance+411,this.actionmouse.y+375);
+                    var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+                }else{
+                    switch (this.howmove){
+                        case 0:  //0:往下 1:往左右
+                            var p2 = cc.Vec2(this.actionmouse.x+411,this.actionmouse.y+this.distance+375);
+                            var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+                        break;
+                        case 1:
+                            var p2 = cc.Vec2(this.actionmouse.x+this.distance+411,this.actionmouse.y+this.distance+375);
+                            var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+                        break;
+
+                    }
+                }
+            }
+        }
+        
+        if(results.length > 0){
+            var point = results[0].point;
+            this.colliderName = results[0].collider.node._name;
+            var actionX = cc.moveBy(0.5,cc.v2(point.x-this.node.x-411,point.y-this.node.y-375));   
+            this.node.runAction(actionX);
+
+            this.distance = point.x-this.node.x-411 + point.y-this.node.y-375;
+            cc.log(this.distance);
+        }
+    },
+
     onLoad () {
         this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
         this.armature_ary = this.chgArmature.getArmatureNames();
         this.aa = '';
         this.Xflag = false;
         this.AnimFlag = false;
+
+        this.moveFlag = false;
+        this.distance = 0; //移動距離
+        this.howtomove = 0; //0:往下 1:往左右
+        this.colliderName = '';
+
+        this.phyM = cc.director.getPhysicsManager();
+        this.phyM.enabled = true;
+        this.phyM.enabledDrawBoundingBox = true
+        this.phyM.enabledAccumulator = true
+
+        this.phyM.debugDrawFlags = cc.PhysicsManager.DrawBits.e_jointBit | cc.PhysicsManager.DrawBits.e_shapeBit;
     },
 
     start () {
-
+       
     },
 
     update (dt) {
         if(this.Xflag != true) this.checkDataMouse();
-        if(typeof cc.sys.localStorage.getItem('sd') != 'undefined' && typeof cc.sys.localStorage.getItem('lr') != 'undefined' && this.AnimFlag == true) this.allAction(this.wMode);
-        // cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
+        //if(typeof cc.sys.localStorage.getItem('sd') != 'undefined' && typeof cc.sys.localStorage.getItem('lr') != 'undefined' && this.AnimFlag == true) //this.allAction(this.wMode);
+        if(typeof cc.sys.localStorage.getItem('sd') != 'undefined' && typeof cc.sys.localStorage.getItem('lr') != 'undefined' && this.moveFlag == true) this.firstraycast();
     },
 
     checkDataMouse:function(){
         if(cc.sys.localStorage.getItem('sd') != 'undefined' && cc.sys.localStorage.getItem('lr') != 'undefined'){
             this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
             this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
+            if(this.lr == 0) this.actionmouse = this.mouse_left
+            else this.actionmouse = this.mouse_right;
             if(this.sd == 0 && this.lr == 0) this.wMode = 1;
             else if(this.sd == 0 && this.lr == 1) this.wMode = 2;
             else if(this.sd == 1 && this.lr == 0) this.wMode = 3;
@@ -353,7 +426,8 @@ cc.Class({
             var xx = this.wMode
             this.getDot(xx);
             this.Xflag = true
-            this.goAction(this.wMode)
+            this.firstraycast();
+            // this.goAction(this.wMode)
             //this.startAction(this.lr);
         }
     },
