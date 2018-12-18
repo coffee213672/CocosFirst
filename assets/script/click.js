@@ -347,40 +347,65 @@ cc.Class({
             }
             var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
             this.moveFlag = true;
-        }else{
-            var p2 = cc.Vec2(this.actionmouse.x+50+411,this.actionmouse.y+375)
-            var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
 
-            if(this.colliderName != results[0].collider.node._name){
-                if(Math.abs(this.distance) < 50){
-                    if(this.distance > 0) var p2 = cc.Vec2(this.actionmouse.x+this.distance+411,this.actionmouse.y+375);
-                    else var p2 = cc.Vec2(this.actionmouse.x+this.distance+411,this.actionmouse.y+375);
-                    var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
-                }else{
-                    switch (this.howmove){
-                        case 0:  //0:往下 1:往左右
-                            var p2 = cc.Vec2(this.actionmouse.x+411,this.actionmouse.y+this.distance+375);
-                            var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
-                        break;
-                        case 1:
-                            var p2 = cc.Vec2(this.actionmouse.x+this.distance+411,this.actionmouse.y+this.distance+375);
-                            var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
-                        break;
-
-                    }
+            if(results.length > 0){
+                if(this.colliderName != results[0].collider.node._name){
+                    var point = results[0].point;
+                    this.colliderName = results[0].collider.node._name;
+                    var actionX = cc.moveBy(0.5,cc.v2(point.x-this.node.x-411,point.y-this.node.y-375));   
+                    this.node.runAction(actionX);
+    
+                    this.distance = point.x-this.node.x-411 + point.y-this.node.y-375;
+                    // cc.log(this.distance);
                 }
             }
+        }else{
+            if(Math.abs(this.distance) < 50){
+                if(this.distance > 0) {
+                    this.chgAnimation('mouse_action1','right');
+                    var p2 = cc.v2(this.actionmouse.x+this.distance+411,this.actionmouse.y+375);
+                }else{ 
+                    this.chgAnimation('mouse_action1');
+                    var p2 = cc.v2(this.actionmouse.x+this.distance+411,this.actionmouse.y+375);
+                }
+                var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+                cc.log(this.distance)
+            }else{
+                switch (this.howtomove){
+                    case 0:  //0:往下 1:往左右
+                        this.chgAnimation('mouse_action1');
+                        var p2 = cc.v2(this.actionmouse.x+411,this.actionmouse.y+this.distance+375);
+                        var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+                        this.howtomove = 1;
+                        cc.log('asd')
+                    break;
+                    case 1:
+                        if(this.distance > 0) this.chgAnimation('mouse_action2','right');
+                        else this.chgAnimation('mouse_action2');
+                        var p2 = cc.v2(this.actionmouse.x+this.distance+411,this.actionmouse.y+this.distance+375);
+                        var results = this.phyM.rayCast(p1,p2,cc.RayCastType.Closest);
+                        this.howtomove = 0;
+                        cc.log('zxc')
+                    break;
+                }
+                
+            }
+
+            if(results.length > 0){
+                if(this.colliderName != results[0].collider.node._name){
+                    var point = results[0].point;
+                    this.colliderName = results[0].collider.node._name;
+                    var actionX = cc.moveBy(0.5,cc.v2(point.x-this.node.x-411,point.y-this.node.y-375));   
+                    this.node.runAction(actionX);
+    
+                    this.distance = point.x-this.node.x-411 + point.y-this.node.y-375;
+                    cc.log(results[0].collider.node._name);
+                }
+            }
+            
         }
         
-        if(results.length > 0){
-            var point = results[0].point;
-            this.colliderName = results[0].collider.node._name;
-            var actionX = cc.moveBy(0.5,cc.v2(point.x-this.node.x-411,point.y-this.node.y-375));   
-            this.node.runAction(actionX);
-
-            this.distance = point.x-this.node.x-411 + point.y-this.node.y-375;
-            cc.log(this.distance);
-        }
+        
     },
 
     onLoad () {
