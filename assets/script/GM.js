@@ -121,8 +121,8 @@ cc.Class({
     start () {
         var xdx = this;
         setTimeout(function(){
-            xdx.sd = 1;//Math.floor(Math.random()*2);
-            xdx.lr = 1;//Math.floor(Math.random()*2);
+            xdx.sd = Math.floor(Math.random()*2);
+            xdx.lr = Math.floor(Math.random()*2);
         },2000)
 
         //下注條
@@ -179,8 +179,8 @@ cc.Class({
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
         }
-        if(this.lr == this.sd) this.checkdot = new cc.Rect(171,-327,2,2);
-        else this.checkdot = new cc.Rect(-173,-327,2,2);
+        if(this.lr == this.sd) this.checkdot = new cc.Rect(160,-332,2,2);
+        else this.checkdot = new cc.Rect(-164,-332,2,2);
     },
 
     containsX : function (x,y,comXY) {
