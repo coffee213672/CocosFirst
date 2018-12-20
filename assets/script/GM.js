@@ -179,8 +179,8 @@ cc.Class({
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
         }
-        if(this.lr == this.sd) this.checkdot = new cc.Rect(160,-332,2,2);
-        else this.checkdot = new cc.Rect(-164,-332,2,2);
+        if(this.lr == this.sd) this.checkdot = new cc.Rect(170,-328,10,5); //-333
+        else this.checkdot = new cc.Rect(-175,-328,10,5);
     },
 
     containsX : function (x,y,comXY) {
