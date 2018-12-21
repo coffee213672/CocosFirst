@@ -23,6 +23,11 @@ cc.Class({
             default: null,
             type: cc.Node,
         },
+
+        getmusic:{
+            default: null,
+            type: cc.AudioClip
+        },
     },
 
     setMouseValue:function(act,tn,direction){
@@ -65,22 +70,22 @@ cc.Class({
     goAction:function(Mode){
         switch (Mode){
             case 1:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-284),cc.callFunc(function(){this.moneyRight.active = false},this));
+                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-284),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2','right');
                 break;
             case 2:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-284),cc.callFunc(function(){this.moneyLeft.active = false},this));
+                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-284),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2');
                 break;
             case 3:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-200),cc.callFunc(function(){this.moneyLeft.active = false},this));
+                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-200),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2','right');
                 break;
             default:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-200),cc.callFunc(function(){this.moneyRight.active = false},this));
+                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-200),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2');
         }

@@ -1,7 +1,7 @@
 cc.Class({
     extends: cc.Component,
     properties: {
-        speed: 1,
+        speed: 0.00005,
         stair_s: {
             default: null,
             type: cc.Node,
@@ -72,15 +72,16 @@ cc.Class({
             type: cc.Label,
         },
 
-        testcol_1:{
+        wood:{
             default: null,
-            type: cc.Sprite,
+            type: cc.Node,
         },
 
-        // testcol_2:{
-        //     default: null,
-        //     type: cc.Sprite,
-        // },
+        bgm:{
+            default: null,
+            type: cc.AudioClip
+        },
+
     },
 
     // LIFE-CYCLE CALLBACKS:
@@ -94,25 +95,21 @@ cc.Class({
         this.timer = 0;
 
         //下注條
-        this.allpercent = Math.floor(Math.random()*100);
-        this.hotLeft =  this.allpercent/100;
-        this.hotRight = (100 - this.allpercent)/100;
-        this.barValueLeft._string = Math.round(this.hotLeft * 100) +' %'
-        this.barValueRight._string = Math.round(this.hotRight * 100) +' %'
+        this.hotLeft =  0;
+        this.hotRight = 0;
+        this.barValueLeft._string = '0 %'
+        this.barValueRight._string = '0 %'
 
-        // this.Xurl = 'http://localhost/build/web-desktop/test.php';
+        this.Xurl = 'http://localhost/test.php';
         // cc.log(this.Xurl);
         this.xhrTimer = 0;
+        
 
-        this.phyM = cc.director.getPhysicsManager();
-
-        this.phyM.enabled = true;
-        this.phyM.enabledDrawBoundingBox = true
-        this.phyM.enabledAccumulator = true
-
-        this.phyM.debugDrawFlags =
-        cc.PhysicsManager.DrawBits.e_jointBit |
-        cc.PhysicsManager.DrawBits.e_shapeBit;
+        //bgm
+        var audioID = cc.audioEngine.play(this.bgm, true, 0.5);
+        cc.log(cc.audioEngine.getState(0))
+        if(cc.audioEngine.getState(0) == 1) cc.audioEngine.stop(audioID);
+        
 
     },
 
@@ -123,11 +120,16 @@ cc.Class({
         setTimeout(function(){
             xdx.sd = Math.floor(Math.random()*2);
             xdx.lr = Math.floor(Math.random()*2);
-        },2000)
+            var action = cc.fadeOut(2.0);
+            xdx.wood.runAction(action)
+        },10000)
+        var all = Math.floor(Math.random()*100)
+        this.hotLeft =  all/100;
+        this.hotRight = (100-all)/100;
 
         //下注條
-        this._updateProgressBar(this.hotbar_left,this.hotLeft);
-        this._updateProgressBar(this.hotbar_right,this.hotRight);
+        // this._updateProgressBar(this.hotbar_left,this.hotLeft);
+        // this._updateProgressBar(this.hotbar_right,this.hotRight);
 
     },
 
@@ -150,12 +152,12 @@ cc.Class({
             return;
         }
 
-        // if(this.xhrTimer > 5){
-        //     this.xhrChangeData();
-        //     this.xhrTimer = 0
-        // }
-        // this.xhrTimer += dt;
-        // this._updateProgressBar(this.testX,dt);
+        if(this.xhrTimer > 5){
+            this.xhrChangeData();
+            this.xhrTimer = 0
+        }
+        this.xhrTimer += dt;
+        // this._updateProgressBar(this.hotbar_right,dt);
     },
 
     checkData:function(){
@@ -179,7 +181,7 @@ cc.Class({
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
         }
-        if(this.lr == this.sd) this.checkdot = new cc.Rect(170,-328,10,5); //-333
+        if(this.lr == this.sd) this.checkdot = new cc.Rect(170,-328,10,5);
         else this.checkdot = new cc.Rect(-175,-328,10,5);
     },
 
@@ -204,12 +206,20 @@ cc.Class({
 
     xhrChangeData:function(){
         var xhr = new XMLHttpRequest();
+        var xdx = this;
+       
         xhr.onreadystatechange = function(){
             if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
                 var response = xhr.responseText;
-                cc.log("http data返回:", response);
-                //var resData = JSON.parse(response);
-                
+                var resData = JSON.parse(response);
+                console.log(xdx.barValueRight);
+                xdx.hotLeft =  resData[0]/100;
+                xdx.hotRight = resData[1]/100;
+                xdx.barValueLeft.string = resData[0] + ' %';
+                xdx.barValueRight.string = resData[1] + ' %';
+          
+                xdx._updateProgressBar(xdx.hotbar_left,xdx.hotLeft);
+                xdx._updateProgressBar(xdx.hotbar_right,xdx.hotRight);
             }
         }
 
@@ -218,7 +228,6 @@ cc.Class({
         var sdata={
             data: [1,2,3]
         };
-        cc.log('post data:', sdata);
         xhr.send(sdata);
     },
 });
