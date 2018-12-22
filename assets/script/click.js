@@ -28,6 +28,11 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
+
+        over_black: {
+            default: null,
+            type: cc.Node,
+        },
     },
 
     setMouseValue:function(act,tn,direction){
@@ -70,22 +75,22 @@ cc.Class({
     goAction:function(Mode){
         switch (Mode){
             case 1:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-284),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
+                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2','right');
                 break;
             case 2:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-284),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
+                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2');
                 break;
             case 3:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-200),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
+                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2','right');
                 break;
             default:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-200),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5)},this));
+                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                 this.chgAnimation('mouse_action2');
         }
@@ -101,6 +106,7 @@ cc.Class({
     },
 
     onLoad () {
+        this.over_black.active = false;
         this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
         this.aa = '';
         this.Xflag = false;
