@@ -71,28 +71,55 @@ cc.Class({
         }
     },
     
+    goActionZero:function(LR){
+        if(LR == 1){
+            if(this.whichmouse == 'mouse_left'){
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1','right');},this)));
+            }else{
+                var move =  cc.sequence(cc.moveBy(0.8,200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                this.chgAnimation('mouse_action2','right');
+            }
+        }else{
+            if(this.whichmouse == 'mouse_right_all'){
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,-80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1');},this)));
+            }else{
+                var move =  cc.sequence(cc.moveBy(0.8,-200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                this.chgAnimation('mouse_action2');
+            }
+        }
+    },
 
     goAction:function(Mode){
         switch (Mode){
             case 1:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
-                this.chgAnimation('mouse_action2','right');
+                if(this.whichmouse == 'mouse_left'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action4');
+                }
                 break;
             case 2:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
-                this.chgAnimation('mouse_action2');
+                if(this.whichmouse == 'mouse_right_all'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action4');
+                }
                 break;
             case 3:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
-                this.chgAnimation('mouse_action2','right');
+                if(this.whichmouse == 'mouse_left'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){this.moneyLeft.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action4');
+                }
                 break;
             default:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
-                this.chgAnimation('mouse_action2');
+                if(this.whichmouse == 'mouse_right_all'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){this.moneyRight.active = false;cc.audioEngine.play(this.getmusic, false, 0.5);this.over_black.active = true},this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action4');
+                }
         }
     },
 
@@ -110,9 +137,13 @@ cc.Class({
         this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
         this.aa = '';
         this.Xflag = false;
+        this.whichmouse = this.getComponent(dragonBones.ArmatureDisplay).node.name;
+        this.ZactionFlag = false;
 
         cc.director.getCollisionManager().enabled = true
         cc.director.getCollisionManager().enabledDebugDraw = false
+
+        cc.log(this.whichmouse);
 
     },
 
@@ -126,7 +157,7 @@ cc.Class({
             if(absX > 30 && absX < 70){
                 if(dX > 0) this.chgAnimation('mouse_action1');
                 else this.chgAnimation('mouse_action1','right');
-            }else if(absX > 300 ||  absX < 30){
+            }else if(absX > 300){
                 this.chgAnimation('mouse_action4');
             }
         }else{
@@ -153,17 +184,24 @@ cc.Class({
     },
 
     checkDataMouse:function(){
-        if(cc.sys.localStorage.getItem('sd') != 'undefined' && cc.sys.localStorage.getItem('lr') != 'undefined'){
-            this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
+        if(cc.sys.localStorage.getItem('lr') != 'undefined' && this.ZactionFlag == false){
             this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
-            if(this.lr == 0) this.actionmouse = this.mouse_left
+            if(this.lr == 1) this.actionmouse = this.mouse_left
             else this.actionmouse = this.mouse_right;
-            if(this.sd == 0 && this.lr == 0) this.wMode = 1;
-            else if(this.sd == 0 && this.lr == 1) this.wMode = 2;
-            else if(this.sd == 1 && this.lr == 0) this.wMode = 3;
+            this.goActionZero(this.lr);
+            this.ZactionFlag = true
+            cc.log(this.lr)
+        }
+
+        if(cc.sys.localStorage.getItem('sd') != 'undefined'){
+            this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
+            if(this.sd == 3 && this.lr == 1) this.wMode = 1;
+            else if(this.sd == 3 && this.lr == 2) this.wMode = 2;
+            else if(this.sd == 4 && this.lr == 1) this.wMode = 3;
             else this.wMode = 4;
             this.Xflag = true
             this.goAction(this.wMode)
+            cc.log(this.lr,this.sd)
         }
     },
 });
