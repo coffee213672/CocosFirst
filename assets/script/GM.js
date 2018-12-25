@@ -42,16 +42,6 @@ cc.Class({
             type: cc.Label,
         },
 
-        coin: {
-            default: null,
-            type: cc.Animation,
-        },
-
-        diamond: {
-            default: null,
-            type: cc.Animation,
-        },
-
         hotbar_left:{
             default: null,
             type: cc.ProgressBar,
@@ -77,21 +67,10 @@ cc.Class({
             type: cc.Node,
         },
 
-        wood_all:{
-            default: null,
-            type: cc.Node,
-        },
-
         bgm:{
             default: null,
             type: cc.AudioClip
         },
-
-        superInfo:{
-            default: null,
-            type: cc.Node,
-        },
-
     },
 
     checkData:function(){
@@ -115,8 +94,6 @@ cc.Class({
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
         }
-        if((this.lr == 1 && this.sd == 3) || (this.lr == 2 && this.sd == 4)) this.checkdot = new cc.Rect(170,-328,10,5);
-        else this.checkdot = new cc.Rect(-175,-328,10,5);
     },
 
     containsX : function (x,y,comXY) {
@@ -127,7 +104,8 @@ cc.Class({
         if(this.RestartFlag == true){
             this.RestartFlag = false;
             this.timer = 0;
-            var xdx = this;
+            // var superInfo = cc.find('superInfo');
+            // superInfo.audioIO = Math.floor(Math.random()*2);
             cc.director.loadScene('game');
         }
     },
@@ -209,12 +187,17 @@ cc.Class({
 
         this.Xurl = 'http://localhost/test.php';
         this.xhrTimer = 0;
-
-        //bgm
-        var audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
-        // if(cc.audioEngine.getState(0) == 1 && audioID != 0) cc.audioEngine.stop(audioID);
         
-        
+        //super
+        var superInfo = cc.find('superInfo');
+        if(typeof superInfo.audioIO == 'undefined' || superInfo.audioIO == 0){
+            superInfo.audioIO = 0;
+            this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
+        }else if(superInfo.audioIO == 1){
+            this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
+            cc.audioEngine.pauseMusic();
+        }
+        this.hotbar_left.progress = 0.4
 
     },
 
@@ -224,9 +207,6 @@ cc.Class({
         var xdx = this;
         setTimeout(function(){
             xdx.lr = Math.floor(Math.random()*2)+1;
-           
-            var action = cc.fadeOut(4.0);
-            xdx.wood_all.runAction(action)
         },10000)
 
         setTimeout(function(){
@@ -248,11 +228,11 @@ cc.Class({
         this.checkData();
 
         if(this.lr == 1){
-            if(this.containsX(this.mouse_left.x,this.mouse_left.y,this.checkdot)){
+            if(this.mouse_left.x == 0 &&this.mouse_left.y == 0){
                 this.timer += dt
             }
         }else if(this.lr == 2){
-            if(this.containsX(this.mouse_right.x,this.mouse_right.y,this.checkdot)){
+            if(this.mouse_right.x == 0 && this.mouse_right.y == 0){
                 this.timer += dt
             }
         }
@@ -268,6 +248,12 @@ cc.Class({
             this.xhrTimer = 0
         }
         this.xhrTimer += dt;
+
+        if(cc.find('superInfo').audioIO == 1){
+            cc.audioEngine.pauseMusic();
+        }else if(cc.find('superInfo').audioIO == 0){
+            cc.audioEngine.resumeMusic(this.audioID);
+        }
         // cc.log(this.hotbar_left.progress)
         // this._updateProgressBar(this.hotbar_right,dt);
         // this._updateProgressBar(this.hotbar_left,dt);
