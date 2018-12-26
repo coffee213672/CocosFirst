@@ -1,7 +1,6 @@
 cc.Class({
     extends: cc.Component,
     properties: {
-        speed: 1,
         stair_s: {
             default: null,
             type: cc.Node,
@@ -71,12 +70,24 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
+
+        draw_title:{
+            default: null,
+            type: cc.Node,
+        },
+
+        over_black: {
+            default: null,
+            type: cc.Node,
+        },
     },
 
     checkData:function(){
         if(typeof this.sd != 'undefined' && this.Sflag == false){
-            if(this.sd === 3) this.stair_d.active = false;
-            else this.stair_s.active = false;
+            if(this.sd == 4){
+                this.stair_s.active = false;
+                this.stair_d.active = true;
+            }
             cc.sys.localStorage.setItem('sd',this.sd);
             this.Sflag = true;
         }
@@ -91,6 +102,9 @@ cc.Class({
                 // this.mouse_left.active = false;
                 this.label_left.enabled = false;
             }
+            this.stair_s.active = true;
+            this.stair_s.opacity = 0;
+            this.stair_s.runAction(cc.fadeIn(2));
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
         }
@@ -111,47 +125,42 @@ cc.Class({
     },
 
     _updateProgressBar: function(progressBar, dt){
-
         var progress = progressBar.progress;
         var countX = dt * 100;
-        for(var i=0;i<countX;i++){
-            progress += (i / 100) * this.speed;
-            this.wait(progressBar,progress)
-
+        for(var i=0;i<=countX;i++){
+            this.wait(progressBar,i)
         }
-        
-        
     },
 
-    wait:function(progressBar,progress){
+    wait:function(progressBar,percent){
         setTimeout(function(){
-            progressBar.progress = progress;
-        },100)
+            progressBar.progress = (percent / 100);
+        },100 + (percent*30))
     },
 
-    xhrChangeData:function(){
-        var xhr = new XMLHttpRequest();
-        var xdx = this;
+    // xhrChangeData:function(){
+    //     var xhr = new XMLHttpRequest();
+    //     var xdx = this;
        
-        xhr.onreadystatechange = function(){
-            if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
-                var response = xhr.responseText;
-                var resData = JSON.parse(response);
-                xdx.hotLeft =  resData[0]/100;
-                xdx.hotRight = resData[1]/100;
-                xdx.barValueLeft.string = resData[0] + ' %';
-                xdx.barValueRight.string = resData[1] + ' %';
+    //     xhr.onreadystatechange = function(){
+    //         if (xhr.readyState == 4 && (xhr.status >= 200 && xhr.status < 400)) {
+    //             var response = xhr.responseText;
+    //             var resData = JSON.parse(response);
+    //             xdx.hotLeft =  resData[0]/100;
+    //             xdx.hotRight = resData[1]/100;
+    //             xdx.barValueLeft.string = resData[0] + ' %';
+    //             xdx.barValueRight.string = resData[1] + ' %';
           
-                xdx._updateProgressBar(xdx.hotbar_left,xdx.hotLeft);
-                xdx._updateProgressBar(xdx.hotbar_right,xdx.hotRight);
-            }
-        }
+    //             xdx._updateProgressBar(xdx.hotbar_left,xdx.hotLeft);
+    //             xdx._updateProgressBar(xdx.hotbar_right,xdx.hotRight);
+    //         }
+    //     }
 
-        xhr.open("POST", this.Xurl, true);
-        xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
-        var axa = 'asd=asd'
-        xhr.send(axa);
-    },
+    //     xhr.open("POST", this.Xurl, true);
+    //     xhr.setRequestHeader("Content-Type","application/x-www-form-urlencoded");
+    //     var axa = 'asd=asd'
+    //     xhr.send(axa);
+    // },
 
     // getResult:function(){
     //     var xhr = new XMLHttpRequest();
@@ -178,6 +187,12 @@ cc.Class({
         this.Lflag = false;
         this.RestartFlag = false;
         this.timer = 0;
+        this.draw_title.active = false
+        this.over_black.active = false
+
+        //梯子
+        this.stair_d.active = false
+        this.stair_s.active = false
 
         //下注條
         this.hotLeft =  0;
@@ -197,8 +212,6 @@ cc.Class({
             this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
             cc.audioEngine.pauseMusic();
         }
-        this.hotbar_left.progress = 0.4
-
     },
 
 
@@ -217,10 +230,10 @@ cc.Class({
         var all = Math.floor(Math.random()*100)
         this.hotLeft =  all/100;
         this.hotRight = (100-all)/100;
-
+        cc.log(this.hotLeft,this.hotRight)
         //下注條
-        // this._updateProgressBar(this.hotbar_left,this.hotLeft);
-        // this._updateProgressBar(this.hotbar_right,this.hotRight);
+        this._updateProgressBar(this.hotbar_left,this.hotLeft);
+        this._updateProgressBar(this.hotbar_right,this.hotRight);
 
     },
 
@@ -229,10 +242,14 @@ cc.Class({
 
         if(this.lr == 1){
             if(this.mouse_left.x == 0 &&this.mouse_left.y == 0){
+                if(this.draw_title.active == false) this.draw_title.active = true
+                if(this.over_black.active == false) this.over_black.active = true
                 this.timer += dt
             }
         }else if(this.lr == 2){
             if(this.mouse_right.x == 0 && this.mouse_right.y == 0){
+                if(this.draw_title.active == false) this.draw_title.active = true
+                if(this.over_black.active == false) this.over_black.active = true
                 this.timer += dt
             }
         }
@@ -243,11 +260,11 @@ cc.Class({
             return;
         }
 
-        if(this.xhrTimer > 5){
-            this.xhrChangeData();
-            this.xhrTimer = 0
-        }
-        this.xhrTimer += dt;
+        // if(this.xhrTimer > 5){
+        //     this.xhrChangeData();
+        //     this.xhrTimer = 0
+        // }
+        // this.xhrTimer += dt;
 
         if(cc.find('superInfo').audioIO == 1){
             cc.audioEngine.pauseMusic();

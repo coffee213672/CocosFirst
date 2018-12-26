@@ -28,11 +28,6 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
-
-        over_black: {
-            default: null,
-            type: cc.Node,
-        },
     },
 
     setMouseValue:function(act,tn,direction){
@@ -118,7 +113,6 @@ cc.Class({
                         this.moneyRight.active = false;
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
-                        this.over_black.active = true;
                         this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
                     },this));
                     this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -131,7 +125,6 @@ cc.Class({
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
                         this.moneyLeft.active = false;
-                        this.over_black.active = true;
                         this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
                     },this));
                     this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -144,7 +137,6 @@ cc.Class({
                         this.moneyLeft.active = false;
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
-                        this.over_black.active = true;
                         this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
                         },this));
                     this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -157,7 +149,6 @@ cc.Class({
                         this.moneyRight.active = false;
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
-                        this.over_black.active = true;
                         this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
                         },this));
                     this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -191,7 +182,6 @@ cc.Class({
     },
 
     onLoad () {
-        this.over_black.active = false;
         this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
         this.aa = '';
         this.Xflag = false;
@@ -201,6 +191,7 @@ cc.Class({
         cc.director.getCollisionManager().enabled = true
         cc.director.getCollisionManager().enabledDebugDraw = false
 
+        // this.node.children[0].active = true
     },
 
     onCollisionEnter: function (other, self) {
