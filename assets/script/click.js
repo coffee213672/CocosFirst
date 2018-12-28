@@ -28,6 +28,35 @@ cc.Class({
             default: null,
             type: cc.AudioClip
         },
+        period:{
+            default: null,
+            type: cc.Label,
+        },
+        single_three:{
+            default: null,
+            type: cc.Node,
+        },
+
+        single_four:{
+            default: null,
+            type: cc.Node,
+        },
+        double_three:{
+            default: null,
+            type: cc.Node,
+        },
+        double_four:{
+            default: null,
+            type: cc.Node,
+        },
+        result_single:{
+            default: null,
+            type: cc.Node,
+        },
+        result_double:{
+            default: null,
+            type: cc.Node,
+        },
     },
 
     setMouseValue:function(act,tn,direction){
@@ -63,14 +92,14 @@ cc.Class({
                 tn.node.scaleX = 1;
                 tn.node.scaleY = 1;
             break;
-            case 'mouse_action6':
-                tn.node.scaleX = 2;
-                tn.node.scaleY = 2;
-            break;
-            case 'mouse_action7':
-                tn.node.scaleX = 2;
-                tn.node.scaleY = 2;
-            break;
+            // case 'mouse_action6':
+            //     tn.node.scaleX = 2;
+            //     tn.node.scaleY = 2;
+            // break;
+            // case 'mouse_action7':
+            //     tn.node.scaleX = 2;
+            //     tn.node.scaleY = 2;
+            // break;
             case 'mouse_action9':
                 if(direction == 'right'){
                     tn.node.scaleX = -0.4;
@@ -106,6 +135,7 @@ cc.Class({
     },
 
     goAction:function(Mode){
+        console.log('模式:'+Mode)
         switch (Mode){
             case 1:
                 if(this.whichmouse == 'mouse_left'){
@@ -143,7 +173,7 @@ cc.Class({
                     this.chgAnimation('mouse_action8');
                 }
                 break;
-            default:
+            case 4:
                 if(this.whichmouse == 'mouse_right_all'){
                     var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){
                         this.moneyRight.active = false;
@@ -154,6 +184,7 @@ cc.Class({
                     this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
                     this.chgAnimation('mouse_action8');
                 }
+            break;
         }
     },
 
@@ -162,14 +193,38 @@ cc.Class({
         var xdx = this;
         setTimeout(function(){
             if(obj.node.x < 0){
-                xdx.chgAnimation('mouse_action6');
+                obj.node.x = 0;
+                obj.node.y = 0;
+                obj.node.active = false;
+                xdx.result_single.active = true
+                xdx.result_single.getComponent(dragonBones.ArmatureDisplay).playAnimation('mouse_action6');
+                xdx.period.string = '期數 '+cc.sys.localStorage.getItem('sn')
             }else{
-                xdx.chgAnimation('mouse_action7');
+                obj.node.x = 0;
+                obj.node.y = 0;
+                obj.node.active = false;
+                xdx.result_double.active = true
+                xdx.result_double.getComponent(dragonBones.ArmatureDisplay).playAnimation('mouse_action7');
+                xdx.period.string = '期數 '+cc.sys.localStorage.getItem('sn')
+                xdx.period.node.y = -53;
             }
-            obj.node.x = 0;
-            obj.node.y = 0;
-            obj.node.setSiblingIndex(40)
-        },3000)
+
+            xdx.period.node.active = true
+            if(xdx.sd == 3 && xdx.lr == 1) {
+                xdx.double_three.active = true;
+                xdx.double_three.setSiblingIndex(41);
+            }else if(xdx.sd == 3 && xdx.lr == 2) {
+                xdx.single_three.active = true;
+                xdx.single_three.setSiblingIndex(41);
+            }else if(xdx.sd == 4 && xdx.lr == 1) {
+                xdx.single_four.active = true;
+                xdx.single_four.setSiblingIndex(41);
+            }else {
+                xdx.double_four.active = true;
+                xdx.double_four.setSiblingIndex(41);
+            }
+            xdx.period.node.setSiblingIndex(42);
+        },2000)
     },
 
     chgAnimation:function(anim,gowhere){
@@ -177,7 +232,7 @@ cc.Class({
         if(typeof gowhere == undefined) this.setMouseValue(this.aa,this.chgArmature);
         else this.setMouseValue(this.aa,this.chgArmature,gowhere);
         this.chgArmature.armatureName = this.aa;
-        this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
+        // this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
         this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
     },
 
@@ -187,6 +242,8 @@ cc.Class({
         this.Xflag = false;
         this.whichmouse = this.getComponent(dragonBones.ArmatureDisplay).node.name;
         this.ZactionFlag = false;
+        this.period.node.active = false
+
 
         cc.director.getCollisionManager().enabled = true
         cc.director.getCollisionManager().enabledDebugDraw = false
@@ -227,26 +284,35 @@ cc.Class({
 
 
     update (dt) {
-        if(this.Xflag != true) this.checkDataMouse();
+        if(cc.sys.localStorage.getItem('lr') != 'undefined' && this.lr != cc.sys.localStorage.getItem('lr')) this.lr = cc.sys.localStorage.getItem('lr');
+        if(cc.sys.localStorage.getItem('sd') != 'undefined' && this.sd != cc.sys.localStorage.getItem('sd')) this.sd = cc.sys.localStorage.getItem('sd');
+        if(this.ZactionFlag == false) this.checkDataMouse(this.lr);
+        if(this.Xflag == false) this.checkDataMouse2(this.sd)
     },
 
-    checkDataMouse:function(){
-        if(cc.sys.localStorage.getItem('lr') != 'undefined' && this.ZactionFlag == false){
-            this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
-            if(this.lr == 1) this.actionmouse = this.mouse_left
-            else this.actionmouse = this.mouse_right;
-            this.goActionZero(this.lr);
+    checkDataMouse:function(leftright){
+        if(leftright != undefined && leftright != '' && this.ZactionFlag == false){
+            console.log('左右老鼠:'+leftright)
             this.ZactionFlag = true
+            // 0:左邊老鼠   1:右邊老鼠
+            if(leftright == 1) this.actionmouse = this.mouse_left
+            else this.actionmouse = this.mouse_right;
+            this.goActionZero(leftright);
         }
+    },
 
-        if(cc.sys.localStorage.getItem('sd') != 'undefined'){
-            this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
-            if(this.sd == 3 && this.lr == 1) this.wMode = 1;
-            else if(this.sd == 3 && this.lr == 2) this.wMode = 2;
-            else if(this.sd == 4 && this.lr == 1) this.wMode = 3;
-            else this.wMode = 4;
-            this.Xflag = true
+    checkDataMouse2:function(singledouble){
+        if(singledouble != undefined && singledouble != ''){
+            console.log('梯子:'+singledouble+',左右:'+this.lr+'期數:'+cc.sys.localStorage.getItem('sn'))
+            console.log(singledouble != '')
+            // 0:少一階梯子 1:正常
+            if(singledouble == 3 && this.lr == 1) this.wMode = 1;
+            else if(singledouble == 3 && this.lr == 2) this.wMode = 2;
+            else if(singledouble == 4 && this.lr == 1) this.wMode = 3;
+            else if(singledouble == 4 && this.lr == 2) this.wMode = 4;
+            console.log('=========')
             this.goAction(this.wMode)
+            this.Xflag = true
         }
     },
 });
