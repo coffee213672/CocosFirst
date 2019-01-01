@@ -4,6 +4,17 @@ cc.Class({
     properties: {
         moveX:0,
         moveY:0,
+
+        mouse_left: {
+            default: null,
+            type: cc.Node,
+        },
+
+        mouse_right: {
+            default: null,
+            type: cc.Node,
+        },
+
         moneyRight:{
             default: null,
             type: cc.Node,
@@ -11,126 +22,42 @@ cc.Class({
         moneyLeft:{
             default: null,
             type: cc.Node,
-        }
+        },
+
+        getmusic:{
+            default: null,
+            type: cc.AudioClip
+        },
+        period:{
+            default: null,
+            type: cc.Label,
+        },
+        single_three:{
+            default: null,
+            type: cc.Node,
+        },
+
+        single_four:{
+            default: null,
+            type: cc.Node,
+        },
+        double_three:{
+            default: null,
+            type: cc.Node,
+        },
+        double_four:{
+            default: null,
+            type: cc.Node,
+        },
+        result_single:{
+            default: null,
+            type: cc.Node,
+        },
+        result_double:{
+            default: null,
+            type: cc.Node,
+        },
     },
-
-
-    /*
-        mouse_action：
-        [0] : mouse_action1 : 鑽土(向左) position  scale (0.5,0.5)
-        [1] : mouse_action2 : 橫跑(向左) position  scale (0.5,0.5)
-        [2] : mouse_action3 : 獲得元寶 position  scale (0.5,0.5)
-        [3] : mouse_action4 : 縱跑(向上) position  scale (0.4,-0.4)
-        [4] : mouse_action5 : 待在原地  position (250,244) ,scale (1,1)
-        var armatre_ary = this.chgArmature.getArmatureNames();
-        this.getComponent(dragonBones.ArmatureDisplay).getArmatureNames()[x] 改變armature
-        this.getComponent(dragonBones.ArmatureDisplay).playAnimation(armatre_ary[x]) 執行animation
-
-        路線1： 
-                第零個切換動作座標點(-192,245)
-                第一個切換動作座標點(-172,245)
-                第二個切換動作座標點(-172,161)
-                第三個切換動作座標點(172,161)
-                第四個切換動作座標點(172,77)
-                第五個切換動作座標點(-172,77)
-                第六個切換動作座標點(-172,-3)
-                第七個切換動作座標點(172,-3)
-                第八個切換動作座標點(172,-287)
-
-        路線2：
-                第零個切換動作座標點(192,245)
-                第一個切換動作座標點(172,245)
-                第二個切換動作座標點(172,161)
-                第三個切換動作座標點(-172,161)
-                第四個切換動作座標點(-172,77)
-                第五個切換動作座標點(172,77)
-                第六個切換動作座標點(172,-3)
-                第七個切換動作座標點(-172,-3)
-                第八個切換動作座標點(-172,-287)
-
-        路線3：
-                第零個切換動作座標點(-192,245)
-                第一個切換動作座標點(-172,245)
-                第二個切換動作座標點(-172,161)
-                第三個切換動作座標點(172,161)
-                第四個切換動作座標點(172,77)
-                第五個切換動作座標點(-172,77)
-                第六個切換動作座標點(-172,-3)
-                第七個切換動作座標點(172,-3)
-                第八個切換動作座標點(172,-87)
-                第九個切換動作座標點(-172,-87)
-                第十個切換動作座標點(-172,-287)
-
-        路線4：
-                第零個切換動作座標點(192,245)
-                第一個切換動作座標點(172,245)
-                第二個切換動作座標點(172,161)
-                第三個切換動作座標點(-172,161)
-                第四個切換動作座標點(-172,77)
-                第五個切換動作座標點(172,77)
-                第六個切換動作座標點(172,-3)
-                第七個切換動作座標點(-172,-3)
-                第八個切換動作座標點(-172,-87)
-                第九個切換動作座標點(172,-87)
-                第十個切換動作座標點(172,-287)
-    */
-
-    getDot:function(xx){
-        switch (xx){
-            case 1:
-                this.dotz = new cc.Rect(-253.5,244.5,3,3);
-                this.dot0 = new cc.Rect(-192.5,244.5,3,3);
-                this.dot1 = new cc.Rect(-173,243,3,3);
-                this.dot2 = new cc.Rect(-173,160,3,3);
-                this.dot3 = new cc.Rect(171,160,3,3);
-                this.dot4 = new cc.Rect(171,76,3,3);
-                this.dot5 = new cc.Rect(-173,76,3,3);
-                this.dot6 = new cc.Rect(-173,-4,3,3);
-                this.dot7 = new cc.Rect(171,-4,3,3);
-                this.dot8 = new cc.Rect(171,-288,3,3);
-            break;
-            case 2:
-                this.dotz = new cc.Rect(251.5,244.5,3,3);
-                this.dot0 = new cc.Rect(191.5,244.5,3,3);
-                this.dot1 = new cc.Rect(171,243,3,3);
-                this.dot2 = new cc.Rect(171,160,3,3);
-                this.dot3 = new cc.Rect(-173,160,3,3);
-                this.dot4 = new cc.Rect(-173,76,3,3);
-                this.dot5 = new cc.Rect(171,76,3,3);
-                this.dot6 = new cc.Rect(171,-4,3,3);
-                this.dot7 = new cc.Rect(-173,-4,3,3);
-                this.dot8 = new cc.Rect(-173,-288,3,3);
-            break;
-            case 3:
-                this.dotz = new cc.Rect(-253.5,244.5,3,3);
-                this.dot0 = new cc.Rect(-192.5,244.5,3,3);
-                this.dot1 = new cc.Rect(-173,244,3,3);
-                this.dot2 = new cc.Rect(-173,160,3,3);
-                this.dot3 = new cc.Rect(171,160,3,3);
-                this.dot4 = new cc.Rect(171,76,3,3);
-                this.dot5 = new cc.Rect(-173,76,3,3);
-                this.dot6 = new cc.Rect(-173,-4,3,3);
-                this.dot7 = new cc.Rect(171,-4,3,3);
-                this.dot8 = new cc.Rect(171,-88,3,3);
-                this.dot9 = new cc.Rect(-173,-88,3,3);
-                this.dot10 = new cc.Rect(-173,-288,3,3);
-            break;
-            default:
-                this.dotz = new cc.Rect(251.5,244.5,3,3);
-                this.dot0 = new cc.Rect(191.5,244.5,3,3);
-                this.dot1 = new cc.Rect(171,244,3,3);
-                this.dot2 = new cc.Rect(171,160,3,3);
-                this.dot3 = new cc.Rect(-173,160,3,3);
-                this.dot4 = new cc.Rect(-173,76,3,3);
-                this.dot5 = new cc.Rect(171,76,3,3);
-                this.dot6 = new cc.Rect(171,-4,3,3);
-                this.dot7 = new cc.Rect(-173,-4,3,3);
-                this.dot8 = new cc.Rect(-173,-88,3,3);
-                this.dot9 = new cc.Rect(171,-88,3,3);
-                this.dot10 = new cc.Rect(171,-288,3,3);
-        }
-    },
-
 
     setMouseValue:function(act,tn,direction){
         switch(act){
@@ -141,7 +68,6 @@ cc.Class({
                 }else{
                     tn.node.scaleX = 0.425;
                     tn.node.scaleY = 0.425;
-                    //tn.node.y = 245;
                 }
             break;
             case 'mouse_action2':
@@ -152,53 +78,153 @@ cc.Class({
                     tn.node.scaleX = 0.4;
                     tn.node.scaleY = 0.4;
                 }
-                //tn.node.y = 245;
             break;
             case 'mouse_action3':
                 tn.node.scaleX = 0.5;
                 tn.node.scaleY = 0.5;
                 tn.node.y = tn.node.y - 40
             break;
-            case 'mouse_action4':
+            case 'mouse_action8':
                 tn.node.scaleX = 0.3;
                 tn.node.scaleY = -0.3;
-                //tn.node.y = 245;
             break;
             case 'mouse_action5':
                 tn.node.scaleX = 1;
                 tn.node.scaleY = 1;
-               // tn.node.y = 245;
+            break;
+            // case 'mouse_action6':
+            //     tn.node.scaleX = 2;
+            //     tn.node.scaleY = 2;
+            // break;
+            // case 'mouse_action7':
+            //     tn.node.scaleX = 2;
+            //     tn.node.scaleY = 2;
+            // break;
+            case 'mouse_action9':
+                if(direction == 'right'){
+                    tn.node.scaleX = -0.4;
+                    tn.node.scaleY = 0.4;
+                }else{
+                    tn.node.scaleX = 0.4;
+                    tn.node.scaleY = 0.4;
+                }
             break;
         }
     },
     
-    startAction:function(lr){
-        if(lr == 1) {
-            this.goAction('mouse_action2',0.5,-60,0);
-        }else{ 
-            this.goAction('mouse_action2',0.5,60,0,'right');
+    goActionZero:function(LR){
+        if(LR == 1){
+            if(this.whichmouse == 'mouse_left'){
+                this.chgAnimation('mouse_action2','right');
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1','right');},this)));
+            }else{
+                var move =  cc.sequence(cc.moveBy(0.8,200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                this.chgAnimation('mouse_action2','right');
+            }
+        }else{
+            if(this.whichmouse == 'mouse_right_all'){
+                this.chgAnimation('mouse_action2');
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,-80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1');},this)));
+            }else{
+                var move =  cc.sequence(cc.moveBy(0.8,-200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                this.chgAnimation('mouse_action2');
+            }
         }
     },
 
     goAction:function(Mode){
+        console.log('模式:'+Mode)
         switch (Mode){
             case 1:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-284));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                if(this.whichmouse == 'mouse_left'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){
+                        this.moneyRight.active = false;
+                        var superInfo = cc.find('superInfo');
+                        if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
+                        this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
+                    },this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action8');
+                }
                 break;
             case 2:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-284));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                if(this.whichmouse == 'mouse_right_all'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){
+                        var superInfo = cc.find('superInfo');
+                        if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
+                        this.moneyLeft.active = false;
+                        this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
+                    },this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action8');
+                }
                 break;
             case 3:
-                var move = cc.sequence(cc.moveBy(0.8,80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-200));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                if(this.whichmouse == 'mouse_left'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){
+                        this.moneyLeft.active = false;
+                        var superInfo = cc.find('superInfo');
+                        if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
+                        this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
+                        },this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action8');
+                }
                 break;
-            default:
-                var move = cc.sequence(cc.moveBy(0.8,-80,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-200));
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+            case 4:
+                if(this.whichmouse == 'mouse_right_all'){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){
+                        this.moneyRight.active = false;
+                        var superInfo = cc.find('superInfo');
+                        if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
+                        this.showresult(this.getComponent(dragonBones.ArmatureDisplay))
+                        },this));
+                    this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
+                    this.chgAnimation('mouse_action8');
+                }
+            break;
         }
-        this.AnimFlag = true;
+    },
+
+    showresult:function(obj){
+
+        var xdx = this;
+        setTimeout(function(){
+            if(obj.node.x < 0){
+                obj.node.x = 0;
+                obj.node.y = 0;
+                obj.node.active = false;
+                xdx.result_single.active = true
+                xdx.result_single.getComponent(dragonBones.ArmatureDisplay).playAnimation('mouse_action6');
+                xdx.period.string = '期數 '+cc.sys.localStorage.getItem('sn')
+            }else{
+                obj.node.x = 0;
+                obj.node.y = 0;
+                obj.node.active = false;
+                xdx.result_double.active = true
+                xdx.result_double.getComponent(dragonBones.ArmatureDisplay).playAnimation('mouse_action7');
+                xdx.period.string = '期數 '+cc.sys.localStorage.getItem('sn')
+                xdx.period.node.y = -53;
+            }
+
+            xdx.period.node.active = true
+            if(xdx.sd == 3 && xdx.lr == 1) {
+                xdx.double_three.active = true;
+                xdx.double_three.setSiblingIndex(41);
+            }else if(xdx.sd == 3 && xdx.lr == 2) {
+                xdx.single_three.active = true;
+                xdx.single_three.setSiblingIndex(41);
+            }else if(xdx.sd == 4 && xdx.lr == 1) {
+                xdx.single_four.active = true;
+                xdx.single_four.setSiblingIndex(41);
+            }else {
+                xdx.double_four.active = true;
+                xdx.double_four.setSiblingIndex(41);
+            }
+            xdx.period.node.setSiblingIndex(42);
+        },2000)
     },
 
     chgAnimation:function(anim,gowhere){
@@ -206,155 +232,87 @@ cc.Class({
         if(typeof gowhere == undefined) this.setMouseValue(this.aa,this.chgArmature);
         else this.setMouseValue(this.aa,this.chgArmature,gowhere);
         this.chgArmature.armatureName = this.aa;
-        this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
+        // this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
         this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
-    },
-
-    allAction:function(Mode){
-        switch (Mode){
-            case 1:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
-                    this.chgAnimation('mouse_action1','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
-                    this.moneyRight.active = false;
-                    this.chgAnimation('mouse_action3');
-                }
-            break;
-            case 2:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
-                    this.chgAnimation('mouse_action1');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
-                    this.moneyLeft.active = false;
-                    this.chgAnimation('mouse_action3');
-                }
-            break;
-            case 3:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
-                    this.chgAnimation('mouse_action1','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot9)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot10)){
-                    this.moneyLeft.active = false;
-                    this.chgAnimation('mouse_action3');
-                }
-            break;
-            default:
-                if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dotz)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot0)){
-                    this.chgAnimation('mouse_action1');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot1)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot2)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot3)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot4)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot5)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot6)){
-                    this.chgAnimation('mouse_action2');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot7)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot8)){
-                    this.chgAnimation('mouse_action2','right');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot9)){
-                    this.chgAnimation('mouse_action4');
-                }else if(this.containsX(this.chgArmature.node.x,this.chgArmature.node.y,this.dot10)){
-                    this.moneyRight.active = false;
-                    this.chgAnimation('mouse_action3');
-                }
-            break;
-        }
-        
-    },
-
-    containsX : function (x,y,comXY) {
-        return (comXY.x <= x && comXY.x + comXY.width >= x && comXY.y <= y && comXY.y + comXY.height >=y);
     },
 
     onLoad () {
         this.chgArmature = this.getComponent(dragonBones.ArmatureDisplay);
-        this.armature_ary = this.chgArmature.getArmatureNames();
         this.aa = '';
         this.Xflag = false;
-        this.AnimFlag = false;
+        this.whichmouse = this.getComponent(dragonBones.ArmatureDisplay).node.name;
+        this.ZactionFlag = false;
+        this.period.node.active = false
+
+
+        cc.director.getCollisionManager().enabled = true
+        cc.director.getCollisionManager().enabledDebugDraw = false
+
+        // this.node.children[0].active = true
     },
 
-    // start () {
+    onCollisionEnter: function (other, self) {
+        var dX = this.recordX - other.node.x;
+        var dY = this.recordY - other.node.y;
+        var absX = Math.abs(dX);
+        var absY = Math.abs(dY);
 
-    // },
+        if(absX != 0){
+            if(absX > 30 && absX < 70){
+                if(dX > 0) this.chgAnimation('mouse_action1');
+                else this.chgAnimation('mouse_action1','right');
+            }else if(absX > 300){
+                this.chgAnimation('mouse_action8');
+            }
+        }else{
+            if(absY < 180){
+                if(other.node.x > 0) this.chgAnimation('mouse_action9');
+                else this.chgAnimation('mouse_action9','right');
+            }else{
+                this.chgAnimation('mouse_action3','right');
+            }
+        }
+        
+        this.recordX = other.node.x;
+        this.recordY = other.node.y;
+    },
+
+    start () {
+        this.recordX = this.node.x;
+        this.recordY = this.node.y;
+    },
+
 
     update (dt) {
-        if(this.Xflag != true) this.checkDataMouse();
-        if(typeof cc.sys.localStorage.getItem('sd') != 'undefined' && typeof cc.sys.localStorage.getItem('lr') != 'undefined' && this.AnimFlag == true) this.allAction(this.wMode);
-        // cc.log(this.chgArmature.node.x+','+this.chgArmature.node.y)
+        if(cc.sys.localStorage.getItem('lr') != 'undefined' && this.lr != cc.sys.localStorage.getItem('lr')) this.lr = cc.sys.localStorage.getItem('lr');
+        if(cc.sys.localStorage.getItem('sd') != 'undefined' && this.sd != cc.sys.localStorage.getItem('sd')) this.sd = cc.sys.localStorage.getItem('sd');
+        if(this.ZactionFlag == false) this.checkDataMouse(this.lr);
+        if(this.Xflag == false) this.checkDataMouse2(this.sd)
     },
 
-    checkDataMouse:function(){
-        if(cc.sys.localStorage.getItem('sd') != 'undefined' && cc.sys.localStorage.getItem('lr') != 'undefined'){
-            this.sd = cc.sys.localStorage.getItem('sd'); // 0:少一階梯子 1:正常
-            this.lr = cc.sys.localStorage.getItem('lr'); // 0:左邊老鼠   1:右邊老鼠
-            if(this.sd == 0 && this.lr == 0) this.wMode = 1;
-            else if(this.sd == 0 && this.lr == 1) this.wMode = 2;
-            else if(this.sd == 1 && this.lr == 0) this.wMode = 3;
-            else this.wMode = 4;
-            var xx = this.wMode
-            this.getDot(xx);
-            this.Xflag = true
+    checkDataMouse:function(leftright){
+        if(leftright != undefined && leftright != '' && this.ZactionFlag == false){
+            console.log('左右老鼠:'+leftright)
+            this.ZactionFlag = true
+            // 0:左邊老鼠   1:右邊老鼠
+            if(leftright == 1) this.actionmouse = this.mouse_left
+            else this.actionmouse = this.mouse_right;
+            this.goActionZero(leftright);
+        }
+    },
+
+    checkDataMouse2:function(singledouble){
+        if(singledouble != undefined && singledouble != ''){
+            console.log('梯子:'+singledouble+',左右:'+this.lr+'期數:'+cc.sys.localStorage.getItem('sn'))
+            console.log(singledouble != '')
+            // 0:少一階梯子 1:正常
+            if(singledouble == 3 && this.lr == 1) this.wMode = 1;
+            else if(singledouble == 3 && this.lr == 2) this.wMode = 2;
+            else if(singledouble == 4 && this.lr == 1) this.wMode = 3;
+            else if(singledouble == 4 && this.lr == 2) this.wMode = 4;
+            console.log('=========')
             this.goAction(this.wMode)
-            //this.startAction(this.lr);
+            this.Xflag = true
         }
     },
 });
