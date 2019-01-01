@@ -291,6 +291,7 @@ cc.Class({
         if(cc.sys.localStorage.getItem('pbl') != 'undefined' && cc.sys.localStorage.getItem('pbl') != '' && cc.sys.localStorage.getItem('pbl') != this.hotLeft && this.olflag == false){
             this.olflag = true
             this.hotLeft = cc.sys.localStorage.getItem('pbl');
+<<<<<<< HEAD
             this.hotRight = cc.sys.localStorage.getItem('pbr')
             if(this.oldleft > this.hotLeft){
                 this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'s','left');
@@ -302,13 +303,24 @@ cc.Class({
                 this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'s','right');
             }else{
                 this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'b','right');
+=======
+            cc.log(this.oldleft > this.hotLeft)
+            if(this.oldleft > this.hotLeft){
+                this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'s',this.oldleft);
+            }else{
+                this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'b',this.oldleft);
+>>>>>>> 46992b43366096803d4ebed71ba143b8f018f6a9
             }
         }
 
         if(this.timeTT >10){
+<<<<<<< HEAD
             var vvv = Math.floor(Math.random()*100);
             cc.sys.localStorage.setItem('pbl',vvv)
             cc.sys.localStorage.setItem('pbr',100-vvv)
+=======
+            cc.sys.localStorage.setItem('pbl',Math.floor(Math.random()*100))
+>>>>>>> 46992b43366096803d4ebed71ba143b8f018f6a9
             cc.log(cc.sys.localStorage.getItem('pbl'))
             this.timeTT = 0;
         }
