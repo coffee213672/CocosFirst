@@ -44,9 +44,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.9144573801531387,
-      "y": 0.9144573801531387,
-      "z": 0.9144573801531387
+      "x": 0.6556454796787092,
+      "y": 0.6556454796787092,
+      "z": 0.6556454796787092
     },
     "_quat": {
       "__type__": "cc.Quat",
@@ -4323,7 +4323,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 203.1,
+      "width": 154.64,
       "height": 30
     },
     "_anchorPoint": {
@@ -4361,7 +4361,7 @@
   },
   {
     "__type__": "cc.Node",
-    "_name": "period_top",
+    "_name": "period_top_child",
     "_objFlags": 0,
     "_parent": {
       "__id__": 101
@@ -4388,7 +4388,7 @@
     },
     "_contentSize": {
       "__type__": "cc.Size",
-      "width": 199.1,
+      "width": 150.64,
       "height": 30
     },
     "_anchorPoint": {
@@ -4435,8 +4435,8 @@
     "_srcBlendFactor": 1,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "第20000000期",
-    "_N$string": "第20000000期",
+    "_string": "第-------期",
+    "_N$string": "第-------期",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
@@ -4478,8 +4478,8 @@
     "_srcBlendFactor": 1,
     "_dstBlendFactor": 771,
     "_useOriginalSize": false,
-    "_string": "第20000000期",
-    "_N$string": "第20000000期",
+    "_string": "第-------期",
+    "_N$string": "第-------期",
     "_fontSize": 30,
     "_lineHeight": 30,
     "_enableWrapText": true,
@@ -5735,6 +5735,9 @@
     },
     "period_top": {
       "__id__": 105
+    },
+    "period_top_child": {
+      "__id__": 103
     },
     "_id": "1eScmEqEtDwrRvAdYuw1HX"
   },

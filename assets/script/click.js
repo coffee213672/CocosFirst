@@ -135,7 +135,7 @@ cc.Class({
     },
 
     goAction:function(Mode){
-        console.log('模式:'+Mode)
+        // console.log('模式:'+Mode)
         switch (Mode){
             case 1:
                 if(this.whichmouse == 'mouse_left'){
@@ -292,7 +292,7 @@ cc.Class({
 
     checkDataMouse:function(leftright){
         if(leftright != undefined && leftright != '' && this.ZactionFlag == false){
-            console.log('左右老鼠:'+leftright)
+            // console.log('左右老鼠:'+leftright)
             this.ZactionFlag = true
             // 0:左邊老鼠   1:右邊老鼠
             if(leftright == 1) this.actionmouse = this.mouse_left
@@ -303,14 +303,14 @@ cc.Class({
 
     checkDataMouse2:function(singledouble){
         if(singledouble != undefined && singledouble != ''){
-            console.log('梯子:'+singledouble+',左右:'+this.lr+'期數:'+cc.sys.localStorage.getItem('sn'))
-            console.log(singledouble != '')
+            // console.log('梯子:'+singledouble+',左右:'+this.lr+'期數:'+cc.sys.localStorage.getItem('sn'))
+            // console.log(singledouble != '')
             // 0:少一階梯子 1:正常
             if(singledouble == 3 && this.lr == 1) this.wMode = 1;
             else if(singledouble == 3 && this.lr == 2) this.wMode = 2;
             else if(singledouble == 4 && this.lr == 1) this.wMode = 3;
             else if(singledouble == 4 && this.lr == 2) this.wMode = 4;
-            console.log('=========')
+            // console.log('=========')
             this.goAction(this.wMode)
             this.Xflag = true
         }

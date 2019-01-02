@@ -83,13 +83,19 @@ cc.Class({
         period_top:{
             default: null,
             type: cc.Label,
+        },
+
+        period_top_child:{
+            default: null,
+            type: cc.Label,
         }
     },
 
     checkData:function(){
         if(this.sn != 0){
             this.period_top_content = this.sn
-            this.period_top.string = '第'+this.sn+'期'; 
+            this.period_top.string = '第'+this.sn+'期'
+            this.period_top_child.string = '第'+this.sn+'期'
         }
         if(this.sd != 0 && this.Sflag == false){
             if(this.sd == 4){
@@ -138,6 +144,7 @@ cc.Class({
         var countXX = 0;
         if(where == 'left'){
             if(bs == 'b'){
+
                 for(var i=this.oldleft;i<=newvalue;i++){
                     this.wait(progressBar,i,barvalue,countXX)
                     countXX += 1;
@@ -145,6 +152,7 @@ cc.Class({
                 this.oldleft = newvalue
                 this.olflag = false
             }else{
+
                 for(var i=this.oldleft;i>=newvalue;i--){
                     this.wait(progressBar,i,barvalue,countXX)
                     countXX += 1;
@@ -154,19 +162,21 @@ cc.Class({
             }
         }else{
             if(bs == 'b'){
+
                 for(var i=this.oldright;i<=newvalue;i++){
                     this.wait(progressBar,i,barvalue,countXX)
                     countXX += 1;
                 }
                 this.oldright = newvalue
-                this.olflag = false
+                this.orflag = false
             }else{
+
                 for(var i=this.oldright;i>=newvalue;i--){
                     this.wait(progressBar,i,barvalue,countXX)
                     countXX += 1;
                 }
                 this.oldright  = newvalue
-                this.olflag = false
+                this.orflag = false
             }
         }
     },
@@ -175,7 +185,7 @@ cc.Class({
         setTimeout(function(){
             progressBar.progress = (percent / 100);
             barvalue.string = percent+' %';
-        },100 + (Xtime*50))
+        },50 + (Xtime*30))
     },
 
     onLoad () {
@@ -211,7 +221,6 @@ cc.Class({
         this.hotRight = 0;
         this.barValueLeft._string = '0 %'
         this.barValueRight._string = '0 %'
-
         
         //super
         var superInfo = cc.find('superInfo');
@@ -230,15 +239,15 @@ cc.Class({
 
 
     start () {
-        // var xdx = this;
-        // setTimeout(function(){
-        //     xdx.lr = Math.floor(Math.random()*2)+1;
-        // },5000)
+        var xdx = this;
+        setTimeout(function(){
+            xdx.lr = Math.floor(Math.random()*2)+1;
+        },5000)
 
-        // setTimeout(function(){
-        //     xdx.sd = Math.floor(Math.random()*2)+3;
-        //     xdx.wood.runAction(cc.fadeOut(4.0))
-        // },10000)
+        setTimeout(function(){
+            xdx.sd = Math.floor(Math.random()*2)+3;
+            xdx.wood.runAction(cc.fadeOut(4.0))
+        },10000)
         
         var all = Math.floor(Math.random()*100)
         this.hotLeft =  all/100;
@@ -288,31 +297,39 @@ cc.Class({
             cc.audioEngine.resumeMusic(this.audioID);
         }
 
-        if(cc.sys.localStorage.getItem('pbl') != 'undefined' && cc.sys.localStorage.getItem('pbl') != '' && cc.sys.localStorage.getItem('pbl') != this.hotLeft && this.olflag == false){
-            this.olflag = true
-            this.hotLeft = cc.sys.localStorage.getItem('pbl');
-            this.hotRight = cc.sys.localStorage.getItem('pbr')
-            if(this.oldleft > this.hotLeft){
-                this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'s','left');
-            }else{
-                this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'b','left');
-            }
-
-            if(this.oldright > this.hotRight){
-                this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'s','right');
-            }else{
-                this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'b','right');
-            }
-        }
-
-        if(this.timeTT >10){
+        if(this.timeTT > 5){
             var vvv = Math.floor(Math.random()*100);
             cc.sys.localStorage.setItem('pbl',vvv)
             cc.sys.localStorage.setItem('pbr',100-vvv)
-            cc.log(cc.sys.localStorage.getItem('pbl'))
             this.timeTT = 0;
         }
         this.timeTT += dt;
+
+        if(cc.sys.localStorage.getItem('pbl') != 'undefined' && cc.sys.localStorage.getItem('pbl') != '' && cc.sys.localStorage.getItem('pbl') != this.hotLeft && this.olflag == false && this.timer < 1){
+            this.olflag = true
+            this.hotLeft = cc.sys.localStorage.getItem('pbl');
+            // this.hotRight = cc.sys.localStorage.getItem('pbr')
+            if(this.oldleft > cc.sys.localStorage.getItem('pbl')){
+           
+                this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'s','left');
+            }else{
+
+                this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'b','left');
+            }
+        }
+
+        if(cc.sys.localStorage.getItem('pbr') != 'undefined' && cc.sys.localStorage.getItem('pbr') != '' && cc.sys.localStorage.getItem('pbr') != this.hotRight && this.orflag == false && this.timer < 1){
+            this.orflag = true
+            this.hotRight = cc.sys.localStorage.getItem('pbr')
+            if(this.oldright > cc.sys.localStorage.getItem('pbr')){
+
+                this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'s','right');
+            }else{
+     
+                this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'b','right');
+            }
+        }
+        
         
     },
     
