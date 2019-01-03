@@ -139,7 +139,7 @@ cc.Class({
         switch (Mode){
             case 1:
                 if(this.whichmouse == 'mouse_left'){
-                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-268),cc.callFunc(function(){
                         this.moneyRight.active = false;
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
@@ -151,7 +151,7 @@ cc.Class({
                 break;
             case 2:
                 if(this.whichmouse == 'mouse_right_all'){
-                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-279),cc.callFunc(function(){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-268),cc.callFunc(function(){
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
                         this.moneyLeft.active = false;
@@ -163,7 +163,7 @@ cc.Class({
                 break;
             case 3:
                 if(this.whichmouse == 'mouse_left'){
-                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-185),cc.callFunc(function(){
                         this.moneyLeft.active = false;
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
@@ -175,7 +175,7 @@ cc.Class({
                 break;
             case 4:
                 if(this.whichmouse == 'mouse_right_all'){
-                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-195),cc.callFunc(function(){
+                    var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-185),cc.callFunc(function(){
                         this.moneyRight.active = false;
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
@@ -216,9 +216,11 @@ cc.Class({
             }else if(xdx.sd == 3 && xdx.lr == 2) {
                 xdx.single_three.active = true;
                 xdx.single_three.setSiblingIndex(41);
+                cc.log(xdx.single_three);
             }else if(xdx.sd == 4 && xdx.lr == 1) {
                 xdx.single_four.active = true;
                 xdx.single_four.setSiblingIndex(41);
+                cc.log(xdx.single_four);
             }else {
                 xdx.double_four.active = true;
                 xdx.double_four.setSiblingIndex(41);
@@ -256,7 +258,7 @@ cc.Class({
         var dY = this.recordY - other.node.y;
         var absX = Math.abs(dX);
         var absY = Math.abs(dY);
-
+        cc.log(absY)
         if(absX != 0){
             if(absX > 30 && absX < 70){
                 if(dX > 0) this.chgAnimation('mouse_action1');
@@ -265,7 +267,7 @@ cc.Class({
                 this.chgAnimation('mouse_action8');
             }
         }else{
-            if(absY < 180){
+            if(absY < 170){
                 if(other.node.x > 0) this.chgAnimation('mouse_action9');
                 else this.chgAnimation('mouse_action9','right');
             }else{

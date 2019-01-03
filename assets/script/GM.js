@@ -66,10 +66,10 @@ cc.Class({
             type: cc.Node,
         },
 
-        bgm:{
-            default: null,
-            type: cc.AudioClip
-        },
+        // bgm:{
+        //     default: null,
+        //     type: cc.AudioClip
+        // },
 
         draw_title:{
             default: null,
@@ -193,7 +193,7 @@ cc.Class({
         cc.sys.localStorage.setItem('lr','undefined');
         cc.sys.localStorage.setItem('pbl','undefined');
         cc.sys.localStorage.setItem('pbr','undefined');
-        // cc.sys.localStorage.setItem('sn','undefined');
+        cc.sys.localStorage.setItem('sn','undefined');
         this.Sflag = false;
         this.Lflag = false;
         this.RestartFlag = false;
@@ -225,13 +225,13 @@ cc.Class({
         //super
         var superInfo = cc.find('superInfo');
         if(cc.sys.localStorage.getItem('audioIO') == 1) superInfo.audioIO = 1
-        if(typeof superInfo.audioIO == 'undefined' || superInfo.audioIO == 0){
-            superInfo.audioIO = 0;
-            this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
-        }else if(superInfo.audioIO == 1){
-            this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
-            cc.audioEngine.pauseMusic();
-        }
+        // if(typeof superInfo.audioIO == 'undefined' || superInfo.audioIO == 0){
+        //     superInfo.audioIO = 0;
+        //     this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
+        // }else if(superInfo.audioIO == 1){
+        //     this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
+        //     cc.audioEngine.pauseMusic();
+        // }
 
         this.timeTT = 0
     },
@@ -239,15 +239,15 @@ cc.Class({
 
 
     start () {
-        var xdx = this;
-        setTimeout(function(){
-            xdx.lr = Math.floor(Math.random()*2)+1;
-        },5000)
+        // var xdx = this;
+        // setTimeout(function(){
+        //     xdx.lr = Math.floor(Math.random()*2)+1;
+        // },5000)
 
-        setTimeout(function(){
-            xdx.sd = Math.floor(Math.random()*2)+3;
-            xdx.wood.runAction(cc.fadeOut(4.0))
-        },10000)
+        // setTimeout(function(){
+        //     xdx.sd = Math.floor(Math.random()*2)+3;
+        //     xdx.wood.runAction(cc.fadeOut(4.0))
+        // },10000)
         
         var all = Math.floor(Math.random()*100)
         this.hotLeft =  all/100;
@@ -260,7 +260,7 @@ cc.Class({
 
     update (dt) {
         this.checkData();
-        if(cc.sys.localStorage.getItem('sn') != null){ 
+        if(cc.sys.localStorage.getItem('sn') != null && cc.sys.localStorage.getItem('sn') != 'undefined'){ 
             if(this.sn != 0 && this.sn != cc.sys.localStorage.getItem('sn')){
                 this.RestartFlag = true
                 this.gameOver();
@@ -297,13 +297,13 @@ cc.Class({
             cc.audioEngine.resumeMusic(this.audioID);
         }
 
-        if(this.timeTT > 5){
-            var vvv = Math.floor(Math.random()*100);
-            cc.sys.localStorage.setItem('pbl',vvv)
-            cc.sys.localStorage.setItem('pbr',100-vvv)
-            this.timeTT = 0;
-        }
-        this.timeTT += dt;
+        // if(this.timeTT > 5){
+        //     var vvv = Math.floor(Math.random()*100);
+        //     cc.sys.localStorage.setItem('pbl',vvv)
+        //     cc.sys.localStorage.setItem('pbr',100-vvv)
+        //     this.timeTT = 0;
+        // }
+        // this.timeTT += dt;
 
         if(cc.sys.localStorage.getItem('pbl') != 'undefined' && cc.sys.localStorage.getItem('pbl') != '' && cc.sys.localStorage.getItem('pbl') != this.hotLeft && this.olflag == false && this.timer < 1){
             this.olflag = true
