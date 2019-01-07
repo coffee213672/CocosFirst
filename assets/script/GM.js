@@ -102,7 +102,7 @@ cc.Class({
                 this.stair_s.active = false;
                 this.stair_d.active = true;
             }
-            this.wood.runAction(cc.fadeOut(4.0))
+            // this.wood.runAction(cc.fadeOut(4.0))
             cc.sys.localStorage.setItem('sd',this.sd);
             this.Sflag = true;
         }
@@ -118,8 +118,8 @@ cc.Class({
                 this.label_left.active = false;
             }
             this.stair_s.active = true;
-            this.stair_s.opacity = 0;
-            this.stair_s.runAction(cc.fadeIn(2));
+            // this.stair_s.opacity = 0;
+            // this.stair_s.runAction(cc.fadeIn(2));
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
         }
@@ -142,49 +142,49 @@ cc.Class({
     _updateProgressBar: function(progressBar, newvalue, barvalue, bs, where){ //哪條進度條,數值,哪條的顯示label
         // var countX = newvalue * 100;
         var countXX = 0;
-        if(where == 'left'){
-            if(bs == 'b'){
+            if(where == 'left'){
+                if(bs == 'b'){
 
-                for(var i=this.oldleft;i<=newvalue;i++){
-                    this.wait(progressBar,i,barvalue,countXX)
-                    countXX += 1;
+                    for(var i=this.oldleft;i<=newvalue;i++){
+                        this.wait(progressBar,i,barvalue,countXX)
+                        countXX += 1;
+                    }
+                    this.oldleft = cc.sys.localStorage.getItem('pbl')
+                    this.olflag = false
+                }else{
+
+                    for(var i=this.oldleft;i>=newvalue;i--){
+                        this.wait(progressBar,i,barvalue,countXX)
+                        countXX += 1;
+                    }
+                    this.oldleft  = cc.sys.localStorage.getItem('pbl')
+                    this.olflag = false
                 }
-                this.oldleft = newvalue
-                this.olflag = false
             }else{
+                if(bs == 'b'){
 
-                for(var i=this.oldleft;i>=newvalue;i--){
-                    this.wait(progressBar,i,barvalue,countXX)
-                    countXX += 1;
+                    for(var i=this.oldright;i<=newvalue;i++){
+                        this.wait(progressBar,i,barvalue,countXX)
+                        countXX += 1;
+                    }
+                    this.oldright = cc.sys.localStorage.getItem('pbr')
+                    this.orflag = false
+                }else{
+
+                    for(var i=this.oldright;i>=newvalue;i--){
+                        this.wait(progressBar,i,barvalue,countXX)
+                        countXX += 1;
+                    }
+                    this.oldright  = cc.sys.localStorage.getItem('pbr')
+                    this.orflag = false
                 }
-                this.oldleft  = newvalue
-                this.olflag = false
             }
-        }else{
-            if(bs == 'b'){
-
-                for(var i=this.oldright;i<=newvalue;i++){
-                    this.wait(progressBar,i,barvalue,countXX)
-                    countXX += 1;
-                }
-                this.oldright = newvalue
-                this.orflag = false
-            }else{
-
-                for(var i=this.oldright;i>=newvalue;i--){
-                    this.wait(progressBar,i,barvalue,countXX)
-                    countXX += 1;
-                }
-                this.oldright  = newvalue
-                this.orflag = false
-            }
-        }
     },
 
     wait:function(progressBar,percent,barvalue,Xtime){
         setTimeout(function(){
             progressBar.progress = (percent / 100);
-            barvalue.string = percent+' %';
+            barvalue.string = percent+'%';
         },50 + (Xtime*30))
     },
 
@@ -237,17 +237,16 @@ cc.Class({
     },
 
 
-
     start () {
         // var xdx = this;
         // setTimeout(function(){
         //     xdx.lr = Math.floor(Math.random()*2)+1;
-        // },5000)
+        // },10000)
 
         // setTimeout(function(){
-        //     xdx.sd = Math.floor(Math.random()*2)+3;
-        //     xdx.wood.runAction(cc.fadeOut(4.0))
-        // },10000)
+        //     xdx.sd = 4//Math.floor(Math.random()*2)+3;
+        //     // xdx.wood.runAction(cc.fadeOut(4.0))
+        // },20000)
         
         var all = Math.floor(Math.random()*100)
         this.hotLeft =  all/100;
@@ -309,24 +308,28 @@ cc.Class({
             this.olflag = true
             this.hotLeft = cc.sys.localStorage.getItem('pbl');
             // this.hotRight = cc.sys.localStorage.getItem('pbr')
-            if(this.oldleft > cc.sys.localStorage.getItem('pbl')){
-           
+            if(this.oldleft > cc.sys.localStorage.getItem('pbl') && cc.sys.localStorage.getItem('pbl') != ''){
+                console.log(cc.sys.localStorage.getItem('pbl')+'小於上一個值:'+this.oldleft)
                 this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'s','left');
-            }else{
-
+            }else if(this.oldleft < cc.sys.localStorage.getItem('pbl') && cc.sys.localStorage.getItem('pbl') != ''){
+                console.log(cc.sys.localStorage.getItem('pbl')+'大於上一個值:'+this.oldleft)
                 this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'b','left');
+            }else{
+                this.olflag = false
             }
         }
 
         if(cc.sys.localStorage.getItem('pbr') != 'undefined' && cc.sys.localStorage.getItem('pbr') != '' && cc.sys.localStorage.getItem('pbr') != this.hotRight && this.orflag == false && this.timer < 1){
             this.orflag = true
             this.hotRight = cc.sys.localStorage.getItem('pbr')
-            if(this.oldright > cc.sys.localStorage.getItem('pbr')){
-
+            if(this.oldright > cc.sys.localStorage.getItem('pbr') && cc.sys.localStorage.getItem('pbr') != ''){
+                console.log(cc.sys.localStorage.getItem('pbr')+'小於上一個值:'+this.oldright)
                 this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'s','right');
-            }else{
-     
+            }else if(this.oldright < cc.sys.localStorage.getItem('pbr') && cc.sys.localStorage.getItem('pbr') != ''){
+                console.log(cc.sys.localStorage.getItem('pbr')+'大於上一個值:'+this.oldright)
                 this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'b','right');
+            }else{
+                this.orflag = false
             }
         }
         

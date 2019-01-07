@@ -2,8 +2,15 @@ cc.Class({
     extends: cc.Component,
 
     properties: {
-        moveX:0,
-        moveY:0,
+        stair_s: {
+            default: null,
+            type: cc.Node,
+        },
+
+        stair_d: {
+            default: null,
+            type: cc.Node,
+        },
 
         mouse_left: {
             default: null,
@@ -92,14 +99,6 @@ cc.Class({
                 tn.node.scaleX = 1;
                 tn.node.scaleY = 1;
             break;
-            // case 'mouse_action6':
-            //     tn.node.scaleX = 2;
-            //     tn.node.scaleY = 2;
-            // break;
-            // case 'mouse_action7':
-            //     tn.node.scaleX = 2;
-            //     tn.node.scaleY = 2;
-            // break;
             case 'mouse_action9':
                 if(direction == 'right'){
                     tn.node.scaleX = -0.4;
@@ -116,7 +115,7 @@ cc.Class({
         if(LR == 1){
             if(this.whichmouse == 'mouse_left'){
                 this.chgAnimation('mouse_action2','right');
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1','right');},this)));
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1','right');this.controlmask()},this)));
             }else{
                 var move =  cc.sequence(cc.moveBy(0.8,200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -125,7 +124,7 @@ cc.Class({
         }else{
             if(this.whichmouse == 'mouse_right_all'){
                 this.chgAnimation('mouse_action2');
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,-80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1');},this)));
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,-80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1');this.controlmask()},this)));
             }else{
                 var move =  cc.sequence(cc.moveBy(0.8,-200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -135,7 +134,6 @@ cc.Class({
     },
 
     goAction:function(Mode){
-        // console.log('模式:'+Mode)
         switch (Mode){
             case 1:
                 if(this.whichmouse == 'mouse_left'){
@@ -163,6 +161,7 @@ cc.Class({
                 break;
             case 3:
                 if(this.whichmouse == 'mouse_left'){
+                    this.controlwoodmask()
                     var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-185),cc.callFunc(function(){
                         this.moneyLeft.active = false;
                         var superInfo = cc.find('superInfo');
@@ -175,6 +174,7 @@ cc.Class({
                 break;
             case 4:
                 if(this.whichmouse == 'mouse_right_all'){
+                    this.controlwoodmask()
                     var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-185),cc.callFunc(function(){
                         this.moneyRight.active = false;
                         var superInfo = cc.find('superInfo');
@@ -189,7 +189,6 @@ cc.Class({
     },
 
     showresult:function(obj){
-
         var xdx = this;
         setTimeout(function(){
             if(obj.node.x < 0){
@@ -212,20 +211,18 @@ cc.Class({
             xdx.period.node.active = true
             if(xdx.sd == 3 && xdx.lr == 1) {
                 xdx.double_three.active = true;
-                xdx.double_three.setSiblingIndex(41);
+                xdx.double_three.setSiblingIndex(50);
             }else if(xdx.sd == 3 && xdx.lr == 2) {
                 xdx.single_three.active = true;
-                xdx.single_three.setSiblingIndex(41);
-                cc.log(xdx.single_three);
+                xdx.single_three.setSiblingIndex(50);
             }else if(xdx.sd == 4 && xdx.lr == 1) {
                 xdx.single_four.active = true;
-                xdx.single_four.setSiblingIndex(41);
-                cc.log(xdx.single_four);
+                xdx.single_four.setSiblingIndex(50);
             }else {
                 xdx.double_four.active = true;
-                xdx.double_four.setSiblingIndex(41);
+                xdx.double_four.setSiblingIndex(50);
             }
-            xdx.period.node.setSiblingIndex(42);
+            xdx.period.node.setSiblingIndex(51);
         },2000)
     },
 
@@ -234,8 +231,39 @@ cc.Class({
         if(typeof gowhere == undefined) this.setMouseValue(this.aa,this.chgArmature);
         else this.setMouseValue(this.aa,this.chgArmature,gowhere);
         this.chgArmature.armatureName = this.aa;
-        // this.chgArmature.playAnimation(this.chgArmature.getAnimationNames(this.aa)[0], 9);
         this.getComponent(dragonBones.ArmatureDisplay).playAnimation(this.aa);
+    },
+
+    controlmask:function(){
+        var mh =  this.stair_s._parent.height
+        var countsq = 0;
+        for(var i=mh;i>=0;i--){
+            this.controlmasktimeout(i,countsq)
+            countsq += 1;
+        }
+    },
+
+    controlmasktimeout:function(MaskHeight,delayT){
+        var xdx = this;
+        setTimeout(function(){
+            xdx.stair_s._parent.height = MaskHeight
+        },50+delayT*10)
+    },
+
+    controlwoodmask:function(){
+        var wh =  this.stair_d._parent.height
+        var countsq = 0;
+        for(var i=wh;i>=0;i--){
+            this.controlwoodtimeout(i,countsq)
+            countsq += 1;
+        }
+    },
+
+    controlwoodtimeout:function(WoodHeight,delayT){
+        var xdx = this;
+        setTimeout(function(){
+            xdx.stair_d._parent.height = WoodHeight
+        },50+delayT*30)
     },
 
     onLoad () {
@@ -249,8 +277,6 @@ cc.Class({
 
         cc.director.getCollisionManager().enabled = true
         cc.director.getCollisionManager().enabledDebugDraw = false
-
-        // this.node.children[0].active = true
     },
 
     onCollisionEnter: function (other, self) {
@@ -258,7 +284,6 @@ cc.Class({
         var dY = this.recordY - other.node.y;
         var absX = Math.abs(dX);
         var absY = Math.abs(dY);
-        cc.log(absY)
         if(absX != 0){
             if(absX > 30 && absX < 70){
                 if(dX > 0) this.chgAnimation('mouse_action1');
@@ -294,7 +319,6 @@ cc.Class({
 
     checkDataMouse:function(leftright){
         if(leftright != undefined && leftright != '' && this.ZactionFlag == false){
-            // console.log('左右老鼠:'+leftright)
             this.ZactionFlag = true
             // 0:左邊老鼠   1:右邊老鼠
             if(leftright == 1) this.actionmouse = this.mouse_left
@@ -305,14 +329,10 @@ cc.Class({
 
     checkDataMouse2:function(singledouble){
         if(singledouble != undefined && singledouble != ''){
-            // console.log('梯子:'+singledouble+',左右:'+this.lr+'期數:'+cc.sys.localStorage.getItem('sn'))
-            // console.log(singledouble != '')
-            // 0:少一階梯子 1:正常
             if(singledouble == 3 && this.lr == 1) this.wMode = 1;
             else if(singledouble == 3 && this.lr == 2) this.wMode = 2;
             else if(singledouble == 4 && this.lr == 1) this.wMode = 3;
             else if(singledouble == 4 && this.lr == 2) this.wMode = 4;
-            // console.log('=========')
             this.goAction(this.wMode)
             this.Xflag = true
         }

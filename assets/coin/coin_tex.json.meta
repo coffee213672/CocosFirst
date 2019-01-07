@@ -1,0 +1,7 @@
+{
+  "ver": "1.0.0",
+  "uuid": "4a8372c8-6f23-4005-8178-72a118117999",
+  "atlasJson": "{\"width\":128,\"SubTexture\":[{\"width\":103,\"y\":1,\"height\":84,\"name\":\"mouse-01\",\"x\":1},{\"width\":32,\"y\":108,\"height\":14,\"name\":\"mouse-02\",\"x\":1},{\"width\":30,\"y\":87,\"height\":19,\"name\":\"mouse-03\",\"x\":1},{\"width\":18,\"y\":1,\"height\":39,\"name\":\"mouse-09\",\"x\":106}],\"height\":128,\"name\":\"coin\",\"imagePath\":\"coin_tex.png\"}",
+  "texture": "563353e7-5932-41da-ae2c-1c94b18c660c",
+  "subMetas": {}
+}

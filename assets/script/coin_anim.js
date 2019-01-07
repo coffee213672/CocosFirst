@@ -1,13 +1,3 @@
-// Learn cc.Class:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/class.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/class.html
-// Learn Attribute:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/reference/attributes.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/reference/attributes.html
-// Learn life-cycle callbacks:
-//  - [Chinese] http://docs.cocos.com/creator/manual/zh/scripting/life-cycle-callbacks.html
-//  - [English] http://www.cocos2d-x.org/docs/creator/en/scripting/life-cycle-callbacks.html
-
 cc.Class({
     extends: cc.Component,
 
@@ -17,15 +7,20 @@ cc.Class({
 
 
     onLoad () {
-        var coin_anim = this.getComponent(cc.Animation);
-        var coin_state = coin_anim.play('coin_anumation');
-        coin_state.wrapMode = cc.WrapMode.Loop;
-        coin_state.repeatCount = Infinity;
+        this.coin = this.getComponent(dragonBones.ArmatureDisplay)
+        this.anim_name = this.coin.getAnimationNames('Armature')[0];
+        this.timer = 0;
     },
 
     start () {
 
     },
 
-    // update (dt) {},
+    update (dt) {
+        if(this.timer > 10) {
+            this.coin.playAnimation(this.anim_name,1);
+            this.timer = 0;
+        }
+        this.timer += dt
+    },
 });
