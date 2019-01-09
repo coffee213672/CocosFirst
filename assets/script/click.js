@@ -114,8 +114,9 @@ cc.Class({
     goActionZero:function(LR){
         if(LR == 1){
             if(this.whichmouse == 'mouse_left'){
+                this.controlmask()
                 this.chgAnimation('mouse_action2','right');
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1','right');this.controlmask()},this)));
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1','right');},this)));
             }else{
                 var move =  cc.sequence(cc.moveBy(0.8,200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -123,8 +124,9 @@ cc.Class({
             }
         }else{
             if(this.whichmouse == 'mouse_right_all'){
+                this.controlmask()
                 this.chgAnimation('mouse_action2');
-                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,-80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1');this.controlmask()},this)));
+                this.getComponent(dragonBones.ArmatureDisplay).node.runAction(cc.sequence(cc.moveBy(0.8,-80,-5),cc.callFunc(function(){this.chgAnimation('mouse_action1');},this)));
             }else{
                 var move =  cc.sequence(cc.moveBy(0.8,-200,0),cc.callFunc(function(){this.getComponent(dragonBones.ArmatureDisplay).node.active = false},this))
                 this.getComponent(dragonBones.ArmatureDisplay).node.runAction(move);
@@ -137,6 +139,7 @@ cc.Class({
         switch (Mode){
             case 1:
                 if(this.whichmouse == 'mouse_left'){
+                    this.controlwoodmaskS()
                     var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.8,0,-268),cc.callFunc(function(){
                         this.moneyRight.active = false;
                         var superInfo = cc.find('superInfo');
@@ -149,6 +152,7 @@ cc.Class({
                 break;
             case 2:
                 if(this.whichmouse == 'mouse_right_all'){
+                    this.controlwoodmaskS()
                     var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.8,0,-268),cc.callFunc(function(){
                         var superInfo = cc.find('superInfo');
                         if(superInfo.audioIO == 0) cc.audioEngine.playMusic(this.getmusic, false, 0.5);
@@ -161,7 +165,7 @@ cc.Class({
                 break;
             case 3:
                 if(this.whichmouse == 'mouse_left'){
-                    this.controlwoodmask()
+                    this.controlwoodmaskD()
                     var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.5,0,-185),cc.callFunc(function(){
                         this.moneyLeft.active = false;
                         var superInfo = cc.find('superInfo');
@@ -174,7 +178,7 @@ cc.Class({
                 break;
             case 4:
                 if(this.whichmouse == 'mouse_right_all'){
-                    this.controlwoodmask()
+                    this.controlwoodmaskD()
                     var move = cc.sequence(cc.moveBy(0.25,0,-79),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,-344,0),cc.moveBy(0.25,0,-84),cc.moveBy(1,344,0),cc.moveBy(0.5,0,-185),cc.callFunc(function(){
                         this.moneyRight.active = false;
                         var superInfo = cc.find('superInfo');
@@ -237,7 +241,7 @@ cc.Class({
     controlmask:function(){
         var mh =  this.stair_s._parent.height
         var countsq = 0;
-        for(var i=mh;i>=0;i--){
+        for(var i=mh;i>=100;i--){
             this.controlmasktimeout(i,countsq)
             countsq += 1;
         }
@@ -250,19 +254,36 @@ cc.Class({
         },50+delayT*10)
     },
 
-    controlwoodmask:function(){
+    controlwoodmaskD:function(){
         var wh =  this.stair_d._parent.height
         var countsq = 0;
         for(var i=wh;i>=0;i--){
-            this.controlwoodtimeout(i,countsq)
+            this.controlwoodtimeoutD(i,countsq)
             countsq += 1;
         }
     },
 
-    controlwoodtimeout:function(WoodHeight,delayT){
+    controlwoodtimeoutD:function(WoodHeight,delayT){
         var xdx = this;
         setTimeout(function(){
             xdx.stair_d._parent.height = WoodHeight
+        },50+delayT*30)
+    },
+
+
+    controlwoodmaskS:function(){
+        var wh =  this.stair_d._parent.height
+        var countsq = 0;
+        for(var i=wh;i>=0;i--){
+            this.controlwoodtimeoutS(i,countsq)
+            countsq += 1;
+        }
+    },
+
+    controlwoodtimeoutS:function(WoodHeight,delayT){
+        var xdx = this;
+        setTimeout(function(){
+            xdx.stair_s._parent.height = WoodHeight
         },50+delayT*30)
     },
 
@@ -277,6 +298,7 @@ cc.Class({
 
         cc.director.getCollisionManager().enabled = true
         cc.director.getCollisionManager().enabledDebugDraw = false
+        
     },
 
     onCollisionEnter: function (other, self) {

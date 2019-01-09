@@ -66,10 +66,10 @@ cc.Class({
             type: cc.Node,
         },
 
-        // bgm:{
-        //     default: null,
-        //     type: cc.AudioClip
-        // },
+        bgm:{
+            default: null,
+            type: cc.AudioClip
+        },
 
         draw_title:{
             default: null,
@@ -108,18 +108,14 @@ cc.Class({
         }
 
         if(this.lr != 0 && this.Lflag == false){
+            this.arrow_right.active = false;
+            this.arrow_left.active = false;
             if(this.lr == 1) {
-                this.arrow_right.active = false;
-                // this.mouse_right.active = false;
                 this.label_right.active = false;
             }else{
-                this.arrow_left.active = false;
-                // this.mouse_left.active = false;
                 this.label_left.active = false;
             }
             this.stair_s.active = true;
-            // this.stair_s.opacity = 0;
-            // this.stair_s.runAction(cc.fadeIn(2));
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
         }
@@ -149,7 +145,7 @@ cc.Class({
                         this.wait(progressBar,i,barvalue,countXX)
                         countXX += 1;
                     }
-                    this.oldleft = cc.sys.localStorage.getItem('pbl')
+                    this.oldleft = parseInt(cc.sys.localStorage.getItem('pbl'))
                     this.olflag = false
                 }else{
 
@@ -157,7 +153,7 @@ cc.Class({
                         this.wait(progressBar,i,barvalue,countXX)
                         countXX += 1;
                     }
-                    this.oldleft  = cc.sys.localStorage.getItem('pbl')
+                    this.oldleft  = parseInt(cc.sys.localStorage.getItem('pbl'))
                     this.olflag = false
                 }
             }else{
@@ -167,7 +163,7 @@ cc.Class({
                         this.wait(progressBar,i,barvalue,countXX)
                         countXX += 1;
                     }
-                    this.oldright = cc.sys.localStorage.getItem('pbr')
+                    this.oldright = parseInt(cc.sys.localStorage.getItem('pbr'))
                     this.orflag = false
                 }else{
 
@@ -175,7 +171,7 @@ cc.Class({
                         this.wait(progressBar,i,barvalue,countXX)
                         countXX += 1;
                     }
-                    this.oldright  = cc.sys.localStorage.getItem('pbr')
+                    this.oldright  = parseInt(cc.sys.localStorage.getItem('pbr'))
                     this.orflag = false
                 }
             }
@@ -214,7 +210,7 @@ cc.Class({
 
         //梯子
         this.stair_d.active = false
-        this.stair_s.active = false
+        // this.stair_s.active = false
 
         //下注條
         this.hotLeft =  0;
@@ -225,28 +221,30 @@ cc.Class({
         //super
         var superInfo = cc.find('superInfo');
         if(cc.sys.localStorage.getItem('audioIO') == 1) superInfo.audioIO = 1
-        // if(typeof superInfo.audioIO == 'undefined' || superInfo.audioIO == 0){
-        //     superInfo.audioIO = 0;
-        //     this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
-        // }else if(superInfo.audioIO == 1){
-        //     this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
-        //     cc.audioEngine.pauseMusic();
-        // }
+        if(typeof superInfo.audioIO == 'undefined' || superInfo.audioIO == 0){
+            superInfo.audioIO = 0;
+            this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
+            cc.audioEngine.setVolume(this.audioID, 0.6);
+        }else if(superInfo.audioIO == 1){
+            this.audioID = cc.audioEngine.playMusic(this.bgm, true, 0.5);
+            cc.audioEngine.setVolume(this.audioID, 0.6);
+            cc.audioEngine.pauseMusic();
+        }
 
         this.timeTT = 0
     },
 
 
     start () {
-        // var xdx = this;
-        // setTimeout(function(){
-        //     xdx.lr = Math.floor(Math.random()*2)+1;
-        // },10000)
+        var xdx = this;
+        setTimeout(function(){
+            xdx.lr = Math.floor(Math.random()*2)+1;
+        },5000)
 
-        // setTimeout(function(){
-        //     xdx.sd = 4//Math.floor(Math.random()*2)+3;
-        //     // xdx.wood.runAction(cc.fadeOut(4.0))
-        // },20000)
+        setTimeout(function(){
+            xdx.sd = 4//Math.floor(Math.random()*2)+3;
+            // xdx.wood.runAction(cc.fadeOut(4.0))
+        },10000)
         
         var all = Math.floor(Math.random()*100)
         this.hotLeft =  all/100;
@@ -291,28 +289,28 @@ cc.Class({
         }
 
         if(cc.find('superInfo').audioIO == 1){
+            cc.sys.localStorage.setItem('audioIO',1)
             cc.audioEngine.pauseMusic();
         }else if(cc.find('superInfo').audioIO == 0){
+            cc.sys.localStorage.setItem('audioIO',0)
             cc.audioEngine.resumeMusic(this.audioID);
         }
 
-        // if(this.timeTT > 5){
-        //     var vvv = Math.floor(Math.random()*100);
-        //     cc.sys.localStorage.setItem('pbl',vvv)
-        //     cc.sys.localStorage.setItem('pbr',100-vvv)
-        //     this.timeTT = 0;
-        // }
-        // this.timeTT += dt;
+        if(this.timeTT > 5){
+            var vvv = Math.floor(Math.random()*100);
+            cc.sys.localStorage.setItem('pbl',vvv)
+            cc.sys.localStorage.setItem('pbr',100-vvv)
+            this.timeTT = 0;
+        }
+        this.timeTT += dt;
 
         if(cc.sys.localStorage.getItem('pbl') != 'undefined' && cc.sys.localStorage.getItem('pbl') != '' && cc.sys.localStorage.getItem('pbl') != this.hotLeft && this.olflag == false && this.timer < 1){
             this.olflag = true
-            this.hotLeft = cc.sys.localStorage.getItem('pbl');
+            this.hotLeft = parseInt(cc.sys.localStorage.getItem('pbl'));
             // this.hotRight = cc.sys.localStorage.getItem('pbr')
-            if(this.oldleft > cc.sys.localStorage.getItem('pbl') && cc.sys.localStorage.getItem('pbl') != ''){
-                console.log(cc.sys.localStorage.getItem('pbl')+'小於上一個值:'+this.oldleft)
+            if(this.oldleft > this.hotLeft && cc.sys.localStorage.getItem('pbl') != ''){
                 this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'s','left');
-            }else if(this.oldleft < cc.sys.localStorage.getItem('pbl') && cc.sys.localStorage.getItem('pbl') != ''){
-                console.log(cc.sys.localStorage.getItem('pbl')+'大於上一個值:'+this.oldleft)
+            }else if(this.oldleft < this.hotLeft && cc.sys.localStorage.getItem('pbl') != ''){
                 this._updateProgressBar(this.hotbar_left,this.hotLeft,this.barValueLeft,'b','left');
             }else{
                 this.olflag = false
@@ -321,12 +319,10 @@ cc.Class({
 
         if(cc.sys.localStorage.getItem('pbr') != 'undefined' && cc.sys.localStorage.getItem('pbr') != '' && cc.sys.localStorage.getItem('pbr') != this.hotRight && this.orflag == false && this.timer < 1){
             this.orflag = true
-            this.hotRight = cc.sys.localStorage.getItem('pbr')
-            if(this.oldright > cc.sys.localStorage.getItem('pbr') && cc.sys.localStorage.getItem('pbr') != ''){
-                console.log(cc.sys.localStorage.getItem('pbr')+'小於上一個值:'+this.oldright)
+            this.hotRight = parseInt(cc.sys.localStorage.getItem('pbr'))
+            if(this.oldright > this.hotRight && cc.sys.localStorage.getItem('pbr') != ''){
                 this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'s','right');
-            }else if(this.oldright < cc.sys.localStorage.getItem('pbr') && cc.sys.localStorage.getItem('pbr') != ''){
-                console.log(cc.sys.localStorage.getItem('pbr')+'大於上一個值:'+this.oldright)
+            }else if(this.oldright < this.hotRight && cc.sys.localStorage.getItem('pbr') != ''){
                 this._updateProgressBar(this.hotbar_right,this.hotRight,this.barValueRight,'b','right');
             }else{
                 this.orflag = false
