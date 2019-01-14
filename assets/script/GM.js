@@ -88,6 +88,10 @@ cc.Class({
         period_top_child:{
             default: null,
             type: cc.Label,
+        },
+        chglr:{
+            type:cc.SpriteFrame,
+            default:null
         }
     },
 
@@ -112,9 +116,13 @@ cc.Class({
             this.arrow_left.active = false;
             if(this.lr == 1) {
                 this.label_right.active = false;
+                this.label_left.getComponent("cc.Sprite").spriteFrame = this.chglr
             }else{
-                this.label_left.active = false;
+                this.label_left.active = false;               
+                this.label_right.getComponent("cc.Sprite").spriteFrame = this.chglr               
             }
+            this.chglr.enabled = false
+            this.chglr.enabled = true
             this.stair_s.active = true;
             cc.sys.localStorage.setItem('lr',this.lr);
             this.Lflag = true;
@@ -236,15 +244,15 @@ cc.Class({
 
 
     start () {
-        var xdx = this;
-        setTimeout(function(){
-            xdx.lr = Math.floor(Math.random()*2)+1;
-        },5000)
+        // var xdx = this;
+        // setTimeout(function(){
+        //     xdx.lr = Math.floor(Math.random()*2)+1;
+        // },5000)
 
-        setTimeout(function(){
-            xdx.sd = 4//Math.floor(Math.random()*2)+3;
-            // xdx.wood.runAction(cc.fadeOut(4.0))
-        },10000)
+        // setTimeout(function(){
+        //     xdx.sd = 4//Math.floor(Math.random()*2)+3;
+        //     // xdx.wood.runAction(cc.fadeOut(4.0))
+        // },10000)
         
         var all = Math.floor(Math.random()*100)
         this.hotLeft =  all/100;
@@ -296,13 +304,13 @@ cc.Class({
             cc.audioEngine.resumeMusic(this.audioID);
         }
 
-        if(this.timeTT > 5){
-            var vvv = Math.floor(Math.random()*100);
-            cc.sys.localStorage.setItem('pbl',vvv)
-            cc.sys.localStorage.setItem('pbr',100-vvv)
-            this.timeTT = 0;
-        }
-        this.timeTT += dt;
+        // if(this.timeTT > 5){
+        //     var vvv = Math.floor(Math.random()*100);
+        //     cc.sys.localStorage.setItem('pbl',vvv)
+        //     cc.sys.localStorage.setItem('pbr',100-vvv)
+        //     this.timeTT = 0;
+        // }
+        // this.timeTT += dt;
 
         if(cc.sys.localStorage.getItem('pbl') != 'undefined' && cc.sys.localStorage.getItem('pbl') != '' && cc.sys.localStorage.getItem('pbl') != this.hotLeft && this.olflag == false && this.timer < 1){
             this.olflag = true

@@ -297,8 +297,7 @@ cc.Class({
 
 
         cc.director.getCollisionManager().enabled = true
-        cc.director.getCollisionManager().enabledDebugDraw = false
-        
+        cc.director.getCollisionManager().enabledDebugDraw = false        
     },
 
     onCollisionEnter: function (other, self) {
