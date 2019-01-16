@@ -197,7 +197,7 @@ cc.Class({
         cc.sys.localStorage.setItem('lr','undefined');
         cc.sys.localStorage.setItem('pbl','undefined');
         cc.sys.localStorage.setItem('pbr','undefined');
-        cc.sys.localStorage.setItem('sn','undefined');
+        if(cc.sys.localStorage.getItem('chgflag') == 'false') cc.sys.localStorage.setItem('sn','undefined');
         this.Sflag = false;
         this.Lflag = false;
         this.RestartFlag = false;

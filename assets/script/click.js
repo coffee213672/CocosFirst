@@ -112,6 +112,7 @@ cc.Class({
     },
     
     goActionZero:function(LR){
+        cc.sys.localStorage.setItem('chgflag',false)
         if(LR == 1){
             if(this.whichmouse == 'mouse_left'){
                 this.controlmask()
