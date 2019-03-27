@@ -47,9 +47,9 @@
     },
     "_scale": {
       "__type__": "cc.Vec3",
-      "x": 0.7743125,
-      "y": 0.7743125,
-      "z": 0.7743125
+      "x": 0.5041458333333333,
+      "y": 0.5041458333333333,
+      "z": 0.5041458333333333
     },
     "_quat": {
       "__type__": "cc.Quat",
@@ -3296,16 +3296,16 @@
     "_srcBlendFactor": 770,
     "_dstBlendFactor": 771,
     "_armatureName": "mouse_action7",
-    "_animationName": "",
+    "_animationName": "mouse_action7",
     "playTimes": 0,
     "_N$dragonAsset": {
-      "__uuid__": "f212d6d6-01f0-4e4b-8f91-3af086738e49"
+      "__uuid__": "4bfa0e2e-3e99-4b4c-8e03-ebc03ef55e7c"
     },
     "_N$dragonAtlasAsset": {
-      "__uuid__": "819fd512-0ce7-44d1-8f10-1dfaa36cbcb2"
+      "__uuid__": "f39c6738-c572-4e78-8547-1cde590fe071"
     },
     "_N$_defaultArmatureIndex": 0,
-    "_N$_animationIndex": 0,
+    "_N$_animationIndex": 1,
     "_N$timeScale": 1,
     "_N$debugBones": false,
     "_id": "d1q0GF9dlOGrm4ep8O4Yxz"
